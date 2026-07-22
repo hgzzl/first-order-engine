@@ -24,7 +24,7 @@ The opening setup offers three explicit choices:
 - The **Talent Market** contains **Agency**, **Staff**, and **Shopify Tool** cards, plus optional **Chaos Monkey event** cards.
 - Agency and Staff cards provide 2–3 skill points and cost **$1 Upkeep each at the start of every turn**.
 - Shopify Tool cards provide exactly **one permanent skill** and never require Upkeep.
-- At the start of a turn, pay the full Upkeep or discard Agency and Staff cards until the remaining cost is affordable.
+- At the start of a turn, pay the full Upkeep or discard Agency and Staff cards until the remaining cost is affordable. The Upkeep view keeps all open Orders and Milestones visible for comparison.
 - A loan provides **$5 cash** and creates **$8 debt**. Repaying $8 uses a turn.
 - Cards form a persistent engine and are **not discarded** when completing Orders or Milestones.
 - Five open **Orders and Milestones** are available. Each requires **3–8 total skill points**, split across its listed skills. Higher-skill cards pay a larger Cash premium.

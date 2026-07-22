@@ -68,6 +68,8 @@ const CHAOS_CARDS = [
   { id: "c5", name: "Hiring rebate", title: "A little free money", description: "Drafting from the Talent Market earns $1 until the next Chaos Monkey.", effect: "cashback" },
 ];
 const state = { players: [], currentPlayerIndex: 0, turn: 1, market: [], milestones: [], talentDraw: [], milestoneDraw: [], activeObjective: null, selected: new Set(), sound: true, chaosEnabled: true, activeChaos: null, pendingDiscards: [], endgame: null, upkeepPending: false, leaderboardSaved: false };
+let actionAnimating = false;
+let monkeyAnimationPending = false;
 const network = { mode: "local", clientId: sessionStorage.getItem("first-order-client") || crypto.randomUUID(), gameId: null, gameCode: null, games: null, unsubscribe: null, hostId: null };
 sessionStorage.setItem("first-order-client", network.clientId);
 const $ = (selector) => document.querySelector(selector);
@@ -91,7 +93,7 @@ const statGrid = (stats, compact = false) => `<div class="stat-grid${compact ? "
 
 const currentPlayer = () => state.players[state.currentPlayerIndex];
 const localPlayer = () => network.mode === "online" ? state.players.find(player => player.clientId === network.clientId) : currentPlayer();
-const isMyTurn = () => !state.upkeepPending && state.endgame?.turnsRemaining !== 0 && (network.mode !== "online" || currentPlayer()?.clientId === network.clientId);
+const isMyTurn = () => !actionAnimating && !state.upkeepPending && state.endgame?.turnsRemaining !== 0 && (network.mode !== "online" || currentPlayer()?.clientId === network.clientId);
 
 function newGame(names = state.players.map(player => player.name), options = {}) {
   const safeNames = names.length >= 1 ? names : ["Day One Goods"];
@@ -163,7 +165,7 @@ function renderMarket() {
       </div>
       <div class="card-body">${statGrid(card.stats)}<div class="card-economy ${card.type}">${card.type === "tool" ? "Permanent +1 · no upkeep" : "$1 Upkeep each turn"}</div></div>
     </button>`).join("");
-  document.querySelectorAll("[data-market]").forEach(button => button.addEventListener("click", () => draft(Number(button.dataset.market))));
+  document.querySelectorAll("[data-market]").forEach(button => button.addEventListener("click", () => requestDraft(Number(button.dataset.market))));
 }
 
 function renderMilestones() {
@@ -224,6 +226,26 @@ function buildMilestoneDraw() {
   return [...shuffle(opening), ...shuffle([...easy, ...medium, ...hard])];
 }
 
+function requestDraft(index) {
+  if (!isMyTurn() || state.pendingDiscards.length || state.upkeepPending) return;
+  const card = document.querySelector(`[data-market="${index}"]`);
+  if (!card) return;
+  actionAnimating = true;
+  document.body.classList.add("action-in-progress");
+  const cardRect = card.getBoundingClientRect();
+  const targetRect = $("#skillBank").getBoundingClientRect();
+  card.style.setProperty("--take-x", `${targetRect.left + targetRect.width / 2 - (cardRect.left + cardRect.width / 2)}px`);
+  card.style.setProperty("--take-y", `${targetRect.top + 20 - (cardRect.top + cardRect.height / 2)}px`);
+  card.classList.add("card-taking");
+  playTone(430, 0.09);
+  const delay = matchMedia("(prefers-reduced-motion: reduce)").matches ? 30 : 520;
+  setTimeout(() => {
+    actionAnimating = false;
+    document.body.classList.remove("action-in-progress");
+    draft(index);
+  }, delay);
+}
+
 function draft(index) {
   if (!isMyTurn() || state.pendingDiscards.length || state.upkeepPending) return;
   const player = currentPlayer();
@@ -241,7 +263,7 @@ function draft(index) {
   playTone(360);
   const toolNote = card.type === "tool" ? " · permanent +1" : "";
   advanceTurn(`${player.name} drafted ${card.name}${toolNote}${earnedCashback ? " · +$1" : ""}`);
-  if (chaos) showChaos(chaos);
+  if (chaos) setTimeout(() => showChaos(chaos), monkeyAnimationPending ? 1950 : 0);
 }
 
 function replenish(row, deck, source) {
@@ -379,13 +401,22 @@ function beginUpkeep() {
 }
 
 function maybeShowUpkeep() {
-  if (!state.upkeepPending || state.pendingDiscards.length || $("#chaosDialog").open) return;
+  if (monkeyAnimationPending || !state.upkeepPending || state.pendingDiscards.length || $("#chaosDialog").open) return;
   const player = currentPlayer();
   if (network.mode === "online" && player.clientId !== network.clientId) return;
   const cost = upkeepCost(player);
   $("#upkeepTitle").textContent = `${player.name}, pay your team`;
   $("#upkeepSummary").textContent = `Agency and Staff cards cost $1 Upkeep each. Your Upkeep is $${cost}; you have $${player.cash}. Discard any cards you do not want to keep.`;
-  $("#upkeepCards").innerHTML = player.hand.map((card, index) => `<button data-upkeep-discard="${index}" style="--card-color:${card.color}"><span>${card.kind}</span><b>${escapeHtml(card.name)}</b><small>Discard · save $1</small></button>`).join("");
+  $("#upkeepCards").innerHTML = player.hand.map((card, index) => {
+    const skills = Object.entries(card.stats).map(([stat, value]) => `${STAT_META[stat].label} ${value}`).join(" · ");
+    return `<button data-upkeep-discard="${index}" style="--card-color:${card.color}"><span>${card.kind}</span><b>${escapeHtml(card.name)}</b><small class="upkeep-skills">${skills}</small><em>Discard · save $1</em></button>`;
+  }).join("");
+  $("#upkeepObjectives").innerHTML = state.milestones.map(card => {
+    const requirements = effectiveRequirements(card);
+    const total = Object.values(requirements).reduce((sum, value) => sum + value, 0);
+    const skills = Object.entries(requirements).map(([stat, value]) => `<span style="--stat-color:${STAT_META[stat].color}">${skillIcon(stat)}${value}</span>`).join("");
+    return `<article><p><small>${card.kind} · ${total} skill</small><b>${escapeHtml(card.name)}</b></p><div>${skills}</div><strong>$${card.reward.cash} · +${card.points} rep</strong></article>`;
+  }).join("");
   $("#payUpkeepButton").textContent = `Pay $${cost} upkeep`;
   $("#payUpkeepButton").disabled = player.cash < cost;
   document.querySelectorAll("[data-upkeep-discard]").forEach(button => button.addEventListener("click", () => {
@@ -423,18 +454,36 @@ function runSoloMonkeyTurn() {
     const index = Math.floor(Math.random() * state.milestones.length);
     const [card] = state.milestones.splice(index, 1);
     replenish(state.milestones, state.milestoneDraw, milestoneDeck);
-    return { message: `Chaos Monkey removed ${card.kind} “${card.name}”` };
+    return { message: `Chaos Monkey removed ${card.kind} “${card.name}”`, target: "objectives" };
   }
   const index = Math.floor(Math.random() * state.market.length);
   const [card] = state.market.splice(index, 1);
   const chaos = replenishTalent();
-  return { message: `Chaos Monkey took ${card.name} from the market`, chaos };
+  return { message: `Chaos Monkey took ${card.name} from the Talent Market`, target: "market", chaos };
+}
+
+function showMonkeyAction(message, target) {
+  const row = target === "objectives" ? $("#milestoneRow") : $("#marketRow");
+  row.classList.remove("monkey-row-hit");
+  void row.offsetWidth;
+  row.classList.add("monkey-row-hit");
+  const overlay = document.createElement("div");
+  overlay.className = "monkey-action";
+  overlay.innerHTML = `<span>🙈</span><p><b>CHAOS MONKEY MOVE</b><small>${escapeHtml(message)}</small></p>`;
+  document.body.appendChild(overlay);
+  playTone(145, 0.22);
+  setTimeout(() => {
+    overlay.classList.add("leaving");
+    setTimeout(() => overlay.remove(), 260);
+    row.classList.remove("monkey-row-hit");
+  }, 1700);
 }
 
 function advanceTurn(message, justTriggeredEndgame = false) {
   if (state.endgame && !justTriggeredEndgame) state.endgame.turnsRemaining -= 1;
   const gameEnded = state.endgame?.turnsRemaining === 0;
   const monkeyTurn = !gameEnded && state.players.length === 1 ? runSoloMonkeyTurn() : null;
+  monkeyAnimationPending = Boolean(monkeyTurn);
   state.turn += 1;
   if (!gameEnded) {
     state.currentPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
@@ -442,7 +491,17 @@ function advanceTurn(message, justTriggeredEndgame = false) {
   }
   render();
   commitNetworkState();
-  if (monkeyTurn?.chaos) showChaos(monkeyTurn.chaos);
+  if (monkeyTurn) {
+    showMonkeyAction(monkeyTurn.message, monkeyTurn.target);
+    setTimeout(() => {
+      monkeyAnimationPending = false;
+      if (monkeyTurn.chaos) showChaos(monkeyTurn.chaos);
+      else {
+        maybeShowPendingDiscard();
+        maybeShowUpkeep();
+      }
+    }, 1850);
+  }
   if (gameEnded) {
     notify(`${message} · Final scores are in`);
     setTimeout(showFinalResults, 450);
@@ -734,6 +793,7 @@ function pendingPlayer() {
 }
 
 function maybeShowPendingDiscard() {
+  if (monkeyAnimationPending) return;
   const player = pendingPlayer();
   if (!player) return;
   $("#chaosTitle").textContent = `${player.name}, choose one card to lose`;

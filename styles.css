@@ -259,6 +259,7 @@ main { overflow: hidden; }
 .dialog-actions .primary-button { flex: 1; }
 .dialog-actions .primary-button:disabled { opacity: .4; cursor: not-allowed; }
 .dialog-actions small { color: var(--muted); }
+.upkeep-dialog { width: min(840px, calc(100% - 30px)); max-height: calc(100vh - 30px); overflow-y: auto; }
 .upkeep-dialog h2, .leaderboard-dialog h2 { margin: 8px 0 10px; font-size: 27px; letter-spacing: -.04em; }
 .upkeep-dialog > p:not(.eyebrow) { margin: 0 0 18px; color: var(--muted); font-size: 11px; line-height: 1.5; }
 .upkeep-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; max-height: 290px; overflow: auto; }
@@ -266,7 +267,20 @@ main { overflow: hidden; }
 .upkeep-cards button::before { content: ""; position: absolute; inset: 0 0 auto; height: 5px; background: var(--card-color); }
 .upkeep-cards button span, .upkeep-cards button small { color: var(--muted); font: 600 7px "DM Mono"; text-transform: uppercase; }
 .upkeep-cards button b { font-size: 11px; }
+.upkeep-cards button .upkeep-skills { color: var(--ink); line-height: 1.4; }
+.upkeep-cards button em { color: #9a542f; font: 700 7px "DM Mono"; font-style: normal; text-transform: uppercase; }
 .upkeep-cards button:hover { border-color: var(--orange); background: #fff7ef; }
+.upkeep-context { margin-top: 20px; padding-top: 17px; border-top: 1px solid var(--line); }
+.upkeep-context > .eyebrow { margin-bottom: 8px; }
+.upkeep-objectives { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+.upkeep-objectives article { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 6px 10px; padding: 9px 10px; border: 1px solid #ddd9cf; border-radius: 6px; background: #f7f4ed; }
+.upkeep-objectives article p { min-width: 0; margin: 0; }
+.upkeep-objectives article p small { display: block; color: var(--muted); font: 600 6px "DM Mono"; text-transform: uppercase; }
+.upkeep-objectives article p b { display: block; overflow: hidden; margin-top: 3px; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.upkeep-objectives article > div { display: flex; gap: 3px; }
+.upkeep-objectives article > div span { display: flex; align-items: center; gap: 2px; font: 700 8px "DM Mono"; }
+.upkeep-objectives .skill-icon { width: 16px; height: 16px; padding: 3px; border-radius: 50%; background: var(--stat-color); color: white; }
+.upkeep-objectives article > strong { grid-column: 1 / -1; color: var(--green); font: 700 7px "DM Mono"; }
 .upkeep-actions { display: grid; grid-template-columns: 1fr 1.3fr; gap: 9px; margin-top: 18px; }
 .upkeep-actions .secondary-button { margin: 0; }
 .leaderboard-row { display: grid; grid-template-columns: 32px 1fr auto; align-items: center; gap: 10px; padding: 12px 0; border-top: 1px solid var(--line); }
@@ -280,6 +294,34 @@ main { overflow: hidden; }
 .win-mark { width: 88px; height: 88px; margin: 18px auto; display: grid; place-items: center; border-radius: 50%; background: var(--lime); color: var(--green-dark); font-size: 38px; }
 .toast { position: fixed; left: 50%; bottom: 22px; z-index: 20; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: white; padding: 11px 17px; border-radius: 6px; font-size: 12px; pointer-events: none; transition: .25s; }
 .toast.show { transform: translate(-50%, 0); opacity: 1; }
+
+body.action-in-progress .game-card:not(.card-taking) { pointer-events: none; }
+.game-card.card-taking { z-index: 40; pointer-events: none; animation: take-card .52s cubic-bezier(.2,.8,.2,1) forwards; }
+.monkey-row-hit .game-card { animation: monkey-card-hit .7s ease both; }
+.monkey-row-hit .game-card:nth-child(2) { animation-delay: .04s; }
+.monkey-row-hit .game-card:nth-child(3) { animation-delay: .08s; }
+.monkey-row-hit .game-card:nth-child(4) { animation-delay: .12s; }
+.monkey-row-hit .game-card:nth-child(5) { animation-delay: .16s; }
+.monkey-action { position: fixed; z-index: 45; top: 92px; right: 30px; max-width: min(390px, calc(100vw - 30px)); display: flex; align-items: center; gap: 13px; padding: 14px 18px 14px 13px; border: 2px solid #df8650; border-radius: 12px; background: #fff4e9; color: var(--ink); box-shadow: 0 18px 48px rgba(20,38,29,.28); animation: monkey-notice-in .36s cubic-bezier(.2,.9,.25,1.2) both; }
+.monkey-action > span { width: 48px; height: 48px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 50%; background: #ffd8bd; font-size: 27px; animation: monkey-bob .45s ease 2; }
+.monkey-action p { margin: 0; }
+.monkey-action b { display: block; color: #a64e28; font: 700 8px "DM Mono"; letter-spacing: .12em; }
+.monkey-action small { display: block; margin-top: 5px; font-size: 11px; line-height: 1.35; }
+.monkey-action.leaving { opacity: 0; transform: translateX(25px); transition: .25s ease; }
+
+@keyframes take-card {
+  0% { transform: translate(0,0) rotate(0) scale(1); opacity: 1; box-shadow: 0 10px 22px rgba(28,42,34,.1); }
+  24% { transform: translate(0,-18px) rotate(-2deg) scale(1.06); opacity: 1; box-shadow: 0 25px 45px rgba(28,42,34,.3); }
+  100% { transform: translate(var(--take-x),var(--take-y)) rotate(8deg) scale(.22); opacity: 0; box-shadow: 0 2px 5px rgba(28,42,34,.1); }
+}
+@keyframes monkey-card-hit {
+  0%, 100% { transform: translateX(0) rotate(0); filter: none; }
+  25% { transform: translateX(-7px) rotate(-1deg); filter: sepia(.4) saturate(1.5); }
+  52% { transform: translateX(8px) rotate(1deg); filter: sepia(.65) saturate(1.8); }
+  76% { transform: translateX(-4px) rotate(-.5deg); }
+}
+@keyframes monkey-notice-in { from { opacity: 0; transform: translateX(35px) scale(.92); } }
+@keyframes monkey-bob { 50% { transform: translateY(-7px) rotate(-8deg); } }
 
 @keyframes deal-in { from { opacity: 0; transform: translateX(-16px) scale(.97); } }
 @media (prefers-reduced-motion: reduce) {
@@ -318,8 +360,9 @@ main { overflow: hidden; }
   .strengths { align-items: start; flex-direction: column; }
   .strength-list { width: 100%; }
   .mode-tabs button { padding-inline: 4px; font-size: 9px; }
+  .monkey-action { top: 76px; left: 15px; right: 15px; max-width: none; }
   .online-actions { grid-template-columns: 1fr; }
-  .discard-grid, .upkeep-cards { grid-template-columns: 1fr; }
+  .discard-grid, .upkeep-cards, .upkeep-objectives { grid-template-columns: 1fr; }
   .requirement-line { grid-template-columns: 1fr 45px 45px; }
   .outsource-controls { grid-column: 1 / -1; justify-content: flex-start; }
   .select-cards { grid-template-columns: 1fr; }
