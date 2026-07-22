@@ -86,21 +86,21 @@ const talentDeck = [
 
 const milestoneDeck = [
   // Objectives deliberately reward different engine shapes: specialists, pairs, and balanced teams.
-  ["First profitable order", "Order", { brand: 3 }, { cash: 2 }, 1, "#dbeaa2"],
-  ["Weekend market sellout", "Order", { fulfillment: 3 }, { cash: 3 }, 1, "#f2c0a7"],
-  ["Reliable supplier network", "Milestone", { production: 4 }, { cash: 3 }, 2, "#efd48e"],
-  ["A team that scales", "Milestone", { staffing: 4 }, { cash: 2 }, 3, "#cdbbe8"],
-  ["Retailer pilot", "Order", { fulfillment: 4, brand: 1 }, { cash: 5 }, 2, "#afd0ed"],
-  ["Repeat customer engine", "Milestone", { brand: 4, fulfillment: 1 }, { cash: 3 }, 3, "#eeb6ca"],
-  ["Two-day dispatch", "Milestone", { fulfillment: 5, operations: 1 }, { cash: 7 }, 2, "#b6d2ef"],
-  ["Operational excellence", "Milestone", { operations: 5, staffing: 1 }, { cash: 4 }, 4, "#add8bf"],
-  ["Holiday rush", "Order", { production: 4, staffing: 2 }, { cash: 8 }, 2, "#f0c891"],
-  ["National press feature", "Order", { brand: 6, operations: 1 }, { cash: 5 }, 5, "#f0b2c1"],
-  ["10,000th order", "Milestone", { fulfillment: 5, operations: 2 }, { cash: 9 }, 3, "#cae49c"],
-  ["Flagship collaboration", "Order", { brand: 4, production: 3 }, { cash: 6 }, 4, "#efb99f"],
-  ["International launch", "Milestone", { fulfillment: 4, brand: 2, operations: 2 }, { cash: 10 }, 4, "#b5d7cf"],
-  ["BFCM record", "Order", { production: 4, fulfillment: 4 }, { cash: 10 }, 4, "#e7c37b"],
-  ["Category leader", "Milestone", { operations: 5, brand: 3 }, { cash: 7 }, 6, "#d4b1df"],
+  ["First profitable order", "Order", { brand: 3 }, { cash: 3 }, 1, "#dbeaa2"],
+  ["Weekend market sellout", "Order", { fulfillment: 3 }, { cash: 4 }, 1, "#f2c0a7"],
+  ["Reliable supplier network", "Milestone", { production: 4 }, { cash: 4 }, 2, "#efd48e"],
+  ["A team that scales", "Milestone", { staffing: 4 }, { cash: 3 }, 3, "#cdbbe8"],
+  ["Retailer pilot", "Order", { fulfillment: 4, brand: 1 }, { cash: 6 }, 2, "#afd0ed"],
+  ["Repeat customer engine", "Milestone", { brand: 4, fulfillment: 1 }, { cash: 4 }, 3, "#eeb6ca"],
+  ["Two-day dispatch", "Milestone", { fulfillment: 5, operations: 1 }, { cash: 9 }, 2, "#b6d2ef"],
+  ["Operational excellence", "Milestone", { operations: 5, staffing: 1 }, { cash: 6 }, 4, "#add8bf"],
+  ["Holiday rush", "Order", { production: 4, staffing: 2 }, { cash: 10 }, 2, "#f0c891"],
+  ["National press feature", "Order", { brand: 6, operations: 1 }, { cash: 7 }, 5, "#f0b2c1"],
+  ["10,000th order", "Milestone", { fulfillment: 5, operations: 2 }, { cash: 11 }, 3, "#cae49c"],
+  ["Flagship collaboration", "Order", { brand: 4, production: 3 }, { cash: 8 }, 4, "#efb99f"],
+  ["International launch", "Milestone", { fulfillment: 4, brand: 2, operations: 2 }, { cash: 12 }, 4, "#b5d7cf"],
+  ["BFCM record", "Order", { production: 4, fulfillment: 4 }, { cash: 12 }, 4, "#e7c37b"],
+  ["Category leader", "Milestone", { operations: 5, brand: 3 }, { cash: 9 }, 6, "#d4b1df"],
 ].map(([name, kind, requirements, reward, points, color], id) => ({ id: `m${id}`, name, kind, requirements, reward, points, color }));
 
 const WIN_SCORE = 20;
@@ -222,14 +222,18 @@ function renderPlayers() {
 }
 
 function renderMarket() {
-  $("#marketRow").innerHTML = state.market.map((card, index) => `
-    <button class="game-card market-card" data-market="${index}" aria-label="Draft ${card.name}" ${!isMyTurn() || state.pendingDiscards.length ? "disabled" : ""}>
-      <div class="card-top" style="--card-color:${card.color}">
-        ${talentArtwork(card.stats)}<p class="card-kind">${card.kind}</p><span class="card-number">0${index + 1}</span><h3>${card.name}</h3>
-      </div>
-      <div class="card-body"><p class="card-flavour">“${escapeHtml(CARD_FLAVOUR[card.name] || "Build it. Ship it. Learn fast.")}”</p><div class="card-economy ${card.type}">${card.type === "tool" ? "Permanent +1 · no upkeep" : "$1 Upkeep each turn"}</div></div>
-      ${marketCardFooter(card.stats)}
-    </button>`).join("");
+  $("#marketRow").innerHTML = state.market.map((card, index) => {
+    const primary = primaryStat(card.stats);
+    const primaryLabel = STAT_META[primary].label;
+    return `
+      <button class="game-card market-card" data-market="${index}" aria-label="Draft ${card.name}, ${card.kind}, primary skill ${primaryLabel}" ${!isMyTurn() || state.pendingDiscards.length ? "disabled" : ""}>
+        <div class="card-top" style="--card-color:${card.color}">
+          ${talentArtwork(card.stats)}<span class="card-skill-badge" style="--stat-color:${STAT_META[primary].color}" title="${primaryLabel}">${skillIcon(primary)}</span><span class="card-number">0${index + 1}</span><h3>${card.name}</h3>
+        </div>
+        <div class="card-body"><p class="card-flavour">“${escapeHtml(CARD_FLAVOUR[card.name] || "Build it. Ship it. Learn fast.")}”</p><div class="card-economy ${card.type}">${card.type === "tool" ? "Permanent +1 · no upkeep" : "$1 Upkeep each turn"}</div></div>
+        ${marketCardFooter(card.stats)}
+      </button>`;
+  }).join("");
   document.querySelectorAll("[data-market]").forEach(button => button.addEventListener("click", () => requestDraft(Number(button.dataset.market))));
 }
 
