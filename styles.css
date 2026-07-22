@@ -234,11 +234,11 @@ main { overflow: hidden; }
 .rules-dialog li b { font-size: 13px; }
 .rules-dialog li p { margin: 3px 0 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
 .primary-button { width: 100%; border: 0; padding: 14px 18px; border-radius: 6px; background: var(--green); color: white; font-weight: 800; cursor: pointer; }
-.brief-header { margin: -34px -34px 25px; padding: 32px 34px 25px; background: #dce9a4; }
-.brief-header h2 { margin: 8px 0 5px; letter-spacing: -.04em; }
-.brief-header p:last-child { margin: 0; color: #52604e; font-size: 12px; }
-.brief-progress { margin: 20px 0; }
-.brief-progress h3 { font-size: 12px; }
+.objective-header { margin: -34px -34px 25px; padding: 32px 34px 25px; background: #dce9a4; }
+.objective-header h2 { margin: 8px 0 5px; letter-spacing: -.04em; }
+.objective-header p:last-child { margin: 0; color: #52604e; font-size: 12px; }
+.objective-progress { margin: 20px 0; }
+.objective-progress h3 { font-size: 12px; }
 .engine-note { margin: 18px 0 4px; padding: 13px 14px; border: 1px solid #b9d3c2; border-radius: 7px; background: #edf5ef; }
 .engine-note b { font-size: 11px; }
 .engine-note p { margin: 4px 0 0; color: var(--muted); font-size: 10px; line-height: 1.45; }

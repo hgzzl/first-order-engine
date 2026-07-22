@@ -60,11 +60,11 @@
         <div class="progress-track"><span id="scoreProgress"></span></div>
       </div>
       <div class="company-metrics">
-        <div><span class="metric-icon cash-icon">$</span><p><b id="cash">2</b><small>CASH</small></p></div>
+        <div><span class="metric-icon cash-icon">$</span><p><b id="cash">5</b><small>CASH</small></p></div>
         <div><span class="metric-icon turn-icon">T</span><p><b id="turn">1</b><small>TURN</small></p></div>
         <div><span class="metric-icon debt-icon">L</span><p><b id="debt">0</b><small>LOAN DUE</small></p></div>
         <div class="cash-actions">
-          <button class="invest-button" id="refreshMarketButton" disabled><span>↻</span><p>REFRESH TALENT<small>$1 · briefs stay put</small></p></button>
+          <button class="invest-button" id="refreshMarketButton" disabled><span>↻</span><p>REFRESH MARKET<small>$1 · Orders & Milestones stay</small></p></button>
           <button class="invest-button" id="takeLoanButton"><span>+$</span><p>TAKE LOAN<small>Get $5 · owe $8</small></p></button>
           <button class="invest-button" id="repayLoanButton" disabled><span>✓</span><p>REPAY LOAN<small>Pay $8</small></p></button>
         </div>
@@ -74,16 +74,16 @@
 
     <section class="board-section milestones-section">
       <div class="section-heading">
-        <div><p class="eyebrow">MAKE YOUR MARK</p><h2>Orders & milestones</h2></div>
-        <p>Briefs cost 3–8 total skill. Completed briefs never consume your cards.</p>
+        <div><p class="eyebrow">MAKE YOUR MARK</p><h2>Open Orders & Milestones</h2></div>
+        <p>Each requires 3–8 total skill. Completing one never consumes your engine cards.</p>
       </div>
       <div class="card-row milestone-row" id="milestoneRow" aria-live="polite"></div>
     </section>
 
     <section class="board-section market-section">
       <div class="section-heading">
-        <div><p class="eyebrow">BUILD YOUR TEAM</p><h2>Open talent market</h2></div>
-        <div class="turn-choice"><span>ON YOUR TURN</span><b>Draft a card</b><i>or</i><b>Complete a brief</b></div>
+        <div><p class="eyebrow">BUILD YOUR TEAM</p><h2>Talent Market</h2></div>
+        <div class="turn-choice"><span>ON YOUR TURN</span><b>Draft Talent</b><i>or</i><b>Complete an Order or Milestone</b></div>
       </div>
       <div class="card-row market-row" id="marketRow" aria-live="polite"></div>
     </section>
@@ -91,12 +91,12 @@
     <section class="workspace">
       <div class="section-heading hand-heading">
         <div><p class="eyebrow">YOUR WORKSPACE</p><h2>Your operating engine <span id="handCount">0 cards</span></h2></div>
-        <p id="handHint">Draft a card from the talent market to get started.</p>
+        <p id="handHint">Draft from the Talent Market to build your engine.</p>
       </div>
       <div class="skill-bank" id="skillBank" aria-label="Combined available skills"></div>
       <div class="hand" id="hand"></div>
       <div class="strengths">
-        <div class="strengths-title"><span>✦</span><p><b>SHOPIFY TOOLS & FOUNDER</b><small>Permanent skills with no round upkeep.</small></p></div>
+        <div class="strengths-title"><span>✦</span><p><b>PERMANENT SKILLS</b><small>Founder and Shopify Tool cards · no Upkeep.</small></p></div>
         <div class="strength-list" id="strengthList"></div>
       </div>
     </section>
@@ -104,9 +104,9 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <dialog id="briefDialog" class="game-dialog">
-    <button class="dialog-close" id="briefClose" aria-label="Close">×</button>
-    <div id="briefContent"></div>
+  <dialog id="objectiveDialog" class="game-dialog">
+    <button class="dialog-close" id="objectiveClose" aria-label="Close">×</button>
+    <div id="objectiveContent"></div>
   </dialog>
 
   <dialog id="rulesDialog" class="game-dialog rules-dialog">
@@ -114,13 +114,13 @@
     <p class="eyebrow">QUICK START</p>
     <h2>Build a durable engine to reach 20.</h2>
     <ol>
-      <li><span>01</span><div><b>Start with $10 and a founder.</b><p>Your founder gives one permanent skill. On each turn, draft from the talent market or complete one open brief.</p></div></li>
-      <li><span>02</span><div><b>Choose how you scale.</b><p>Agencies and staff provide 2–3 skill points but cost $1 each at the start of every turn. Shopify tools provide one permanent skill with no upkeep.</p></div></li>
-      <li><span>03</span><div><b>Pay—or make cuts.</b><p>At the start of your turn, pay the full upkeep or discard agencies and staff until you can afford it.</p></div></li>
+      <li><span>01</span><div><b>Start with cash and a Founder.</b><p>The first company starts with $5; each later company starts with $1 more. Your Founder provides one permanent skill. Draft from the Talent Market or complete an Order or Milestone each turn.</p></div></li>
+      <li><span>02</span><div><b>Choose how you scale.</b><p>Agency and Staff cards provide 2–3 skill points but each costs $1 Upkeep. Shopify Tool cards provide one permanent skill with no Upkeep.</p></div></li>
+      <li><span>03</span><div><b>Pay—or make cuts.</b><p>At the start of your turn, pay the full Upkeep or discard Agency and Staff cards until you can afford it.</p></div></li>
       <li><span>04</span><div><b>Borrow carefully.</b><p>A loan gives you $5 immediately but creates $8 of debt. Repaying $8 uses your turn. You cannot win while any loan remains.</p></div></li>
-      <li><span>05</span><div><b>Your engine is permanent.</b><p>Completing orders and milestones earns cash and reputation without discarding cards. Briefs require 3–8 total skill points, split across the listed skills.</p></div></li>
+      <li><span>05</span><div><b>Your engine is persistent.</b><p>Completing Orders and Milestones earns Cash and Reputation without discarding engine cards. Each requires 3–8 total skill points, split across its listed skills.</p></div></li>
       <li><span>06</span><div><b>Win with 20 reputation and no debt.</b><p>Solo games finish immediately. Multiplayer games finish the current round, play one final round, and award the win to the most reputable debt-free company.</p></div></li>
-      <li><span>07</span><div><b>Play against the Chaos Monkey solo.</b><p>After every solo turn, the monkey takes one talent card. It has a 1-in-5 chance to steal an open brief instead. Optional event cards add even more chaos.</p></div></li>
+      <li><span>07</span><div><b>Play against the Chaos Monkey solo.</b><p>After every solo turn, the monkey takes one card from the Talent Market. It has a 1-in-5 chance to remove an open Order or Milestone instead. Optional event cards add even more chaos.</p></div></li>
     </ol>
     <button class="primary-button" id="rulesStart">Let's build</button>
   </dialog>
@@ -166,7 +166,7 @@
   </dialog>
 
   <dialog id="upkeepDialog" class="game-dialog upkeep-dialog">
-    <p class="eyebrow">ROUND UPKEEP</p><h2 id="upkeepTitle">Pay your team</h2><p id="upkeepSummary"></p>
+    <p class="eyebrow">TURN UPKEEP</p><h2 id="upkeepTitle">Pay your team</h2><p id="upkeepSummary"></p>
     <div id="upkeepCards" class="upkeep-cards"></div>
     <div class="upkeep-actions"><button class="secondary-button" id="upkeepLoanButton">Take $5 loan</button><button class="primary-button" id="payUpkeepButton">Pay upkeep</button></div>
   </dialog>

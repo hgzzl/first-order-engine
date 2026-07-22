@@ -15,40 +15,40 @@ const talentDeck = [
   ["Product Design House", "Agency", "agency", { production: 2, brand: 1 }, "#efbd8f"],
   ["Operations Consultancy", "Agency", "agency", { operations: 2, staffing: 1 }, "#9fcbb0"],
   ["Logistics Network", "Agency", "agency", { fulfillment: 2, operations: 1 }, "#a7c7ea"],
-  ["Brand Director", "Staffing", "staffing", { brand: 3 }, "#dc83a4"],
-  ["Fulfillment Lead", "Staffing", "staffing", { fulfillment: 3 }, "#729be6"],
-  ["Production Manager", "Staffing", "staffing", { production: 3 }, "#e2b44e"],
-  ["People Lead", "Staffing", "staffing", { staffing: 3 }, "#9679cf"],
-  ["Operations Manager", "Staffing", "staffing", { operations: 3 }, "#63a57c"],
-  ["Customer Success Rep", "Staffing", "staffing", { brand: 1, fulfillment: 2 }, "#d99db6"],
-  ["Inventory Planner", "Staffing", "staffing", { production: 1, operations: 2 }, "#bfca8d"],
-  ["Warehouse Crew", "Staffing", "staffing", { fulfillment: 2, staffing: 1 }, "#9abbe3"],
-  ["Shopify Flow", "Shopify tool", "tool", { operations: 1 }, "#95d5ae"],
-  ["Shopify Sidekick", "Shopify tool", "tool", { staffing: 1 }, "#b8a2e4"],
-  ["Shopify Markets", "Shopify tool", "tool", { brand: 1 }, "#e8a6be"],
-  ["Shopify Shipping", "Shopify tool", "tool", { fulfillment: 1 }, "#9fbfea"],
-  ["Shopify Bundles", "Shopify tool", "tool", { production: 1 }, "#e8c66e"],
-  ["Shopify Collabs", "Shopify tool", "tool", { brand: 1 }, "#e7abc3"],
-  ["Shopify POS", "Shopify tool", "tool", { operations: 1 }, "#8cc9a4"],
-  ["Shopify Collective", "Shopify tool", "tool", { production: 1 }, "#e4c276"],
+  ["Brand Director", "Staff", "staffing", { brand: 3 }, "#dc83a4"],
+  ["Fulfillment Lead", "Staff", "staffing", { fulfillment: 3 }, "#729be6"],
+  ["Production Manager", "Staff", "staffing", { production: 3 }, "#e2b44e"],
+  ["People Lead", "Staff", "staffing", { staffing: 3 }, "#9679cf"],
+  ["Operations Manager", "Staff", "staffing", { operations: 3 }, "#63a57c"],
+  ["Customer Success Rep", "Staff", "staffing", { brand: 1, fulfillment: 2 }, "#d99db6"],
+  ["Inventory Planner", "Staff", "staffing", { production: 1, operations: 2 }, "#bfca8d"],
+  ["Warehouse Crew", "Staff", "staffing", { fulfillment: 2, staffing: 1 }, "#9abbe3"],
+  ["Shopify Flow", "Shopify Tool", "tool", { operations: 1 }, "#95d5ae"],
+  ["Shopify Sidekick", "Shopify Tool", "tool", { staffing: 1 }, "#b8a2e4"],
+  ["Shopify Markets", "Shopify Tool", "tool", { brand: 1 }, "#e8a6be"],
+  ["Shopify Shipping", "Shopify Tool", "tool", { fulfillment: 1 }, "#9fbfea"],
+  ["Shopify Bundles", "Shopify Tool", "tool", { production: 1 }, "#e8c66e"],
+  ["Shopify Collabs", "Shopify Tool", "tool", { brand: 1 }, "#e7abc3"],
+  ["Shopify POS", "Shopify Tool", "tool", { operations: 1 }, "#8cc9a4"],
+  ["Shopify Collective", "Shopify Tool", "tool", { production: 1 }, "#e4c276"],
 ].map(([name, kind, type, stats, color], id) => ({ id: `t${id}`, name, kind, type, stats, color }));
 
 const milestoneDeck = [
-  ["First profitable order", "Order", { brand: 2, production: 1 }, { cash: 3 }, 1, "#dbeaa2"],
-  ["Weekend market sellout", "Order", { brand: 1, fulfillment: 2 }, { cash: 3 }, 1, "#f2c0a7"],
-  ["Reliable supplier network", "Milestone", { production: 2, operations: 2 }, { cash: 4 }, 2, "#efd48e"],
-  ["A team that scales", "Milestone", { staffing: 2, operations: 2 }, { cash: 4 }, 2, "#cdbbe8"],
-  ["Retailer pilot", "Order", { production: 2, fulfillment: 3 }, { cash: 5 }, 2, "#afd0ed"],
-  ["Repeat customer engine", "Milestone", { brand: 3, fulfillment: 2 }, { cash: 5 }, 2, "#eeb6ca"],
-  ["Two-day dispatch", "Milestone", { fulfillment: 3, operations: 3 }, { cash: 6 }, 3, "#b6d2ef"],
-  ["Operational excellence", "Milestone", { operations: 3, staffing: 3 }, { cash: 6 }, 3, "#add8bf"],
-  ["Holiday rush", "Order", { production: 2, fulfillment: 2, staffing: 2 }, { cash: 7 }, 3, "#f0c891"],
-  ["National press feature", "Order", { brand: 4, production: 3 }, { cash: 7 }, 3, "#f0b2c1"],
-  ["10,000th order", "Milestone", { brand: 2, fulfillment: 3, operations: 2 }, { cash: 8 }, 4, "#cae49c"],
-  ["Flagship collaboration", "Order", { brand: 3, production: 2, staffing: 2 }, { cash: 8 }, 4, "#efb99f"],
-  ["International launch", "Milestone", { brand: 3, fulfillment: 2, operations: 3 }, { cash: 9 }, 4, "#b5d7cf"],
-  ["BFCM record", "Order", { production: 3, fulfillment: 3, staffing: 2 }, { cash: 10 }, 5, "#e7c37b"],
-  ["Category leader", "Milestone", { brand: 3, production: 2, operations: 3 }, { cash: 10 }, 5, "#d4b1df"],
+  ["First profitable order", "Order", { brand: 2, production: 1 }, { cash: 2 }, 1, "#dbeaa2"],
+  ["Weekend market sellout", "Order", { brand: 1, fulfillment: 2 }, { cash: 2 }, 1, "#f2c0a7"],
+  ["Reliable supplier network", "Milestone", { production: 2, operations: 2 }, { cash: 3 }, 2, "#efd48e"],
+  ["A team that scales", "Milestone", { staffing: 2, operations: 2 }, { cash: 3 }, 2, "#cdbbe8"],
+  ["Retailer pilot", "Order", { production: 2, fulfillment: 3 }, { cash: 4 }, 2, "#afd0ed"],
+  ["Repeat customer engine", "Milestone", { brand: 3, fulfillment: 2 }, { cash: 4 }, 2, "#eeb6ca"],
+  ["Two-day dispatch", "Milestone", { fulfillment: 3, operations: 3 }, { cash: 5 }, 3, "#b6d2ef"],
+  ["Operational excellence", "Milestone", { operations: 3, staffing: 3 }, { cash: 5 }, 3, "#add8bf"],
+  ["Holiday rush", "Order", { production: 2, fulfillment: 2, staffing: 2 }, { cash: 5 }, 3, "#f0c891"],
+  ["National press feature", "Order", { brand: 4, production: 3 }, { cash: 6 }, 3, "#f0b2c1"],
+  ["10,000th order", "Milestone", { brand: 2, fulfillment: 3, operations: 2 }, { cash: 6 }, 4, "#cae49c"],
+  ["Flagship collaboration", "Order", { brand: 3, production: 2, staffing: 2 }, { cash: 6 }, 4, "#efb99f"],
+  ["International launch", "Milestone", { brand: 3, fulfillment: 2, operations: 3 }, { cash: 7 }, 4, "#b5d7cf"],
+  ["BFCM record", "Order", { production: 3, fulfillment: 3, staffing: 2 }, { cash: 8 }, 5, "#e7c37b"],
+  ["Category leader", "Milestone", { brand: 3, production: 2, operations: 3 }, { cash: 8 }, 5, "#d4b1df"],
 ].map(([name, kind, requirements, reward, points, color], id) => ({ id: `m${id}`, name, kind, requirements, reward, points, color }));
 
 const WIN_SCORE = 20;
@@ -61,13 +61,13 @@ const FOUNDER_ARCHETYPES = [
   { name: "The Systems Thinker", stat: "operations" },
 ];
 const CHAOS_CARDS = [
-  { id: "c1", name: "Brand tax", title: "The algorithm changed again", description: "Brand costs +1 on every brief until the next Chaos Monkey.", effect: "skill", stat: "brand", delta: 1 },
-  { id: "c2", name: "Ops breakthrough", title: "Someone finally read the spreadsheet", description: "Operations costs 1 less on every brief until the next Chaos Monkey.", effect: "skill", stat: "operations", delta: -1 },
-  { id: "c3", name: "Talent shuffle", title: "Unexpected re-org", description: "Every founder with cards must choose one to discard.", effect: "discard" },
-  { id: "c4", name: "Brief reset", title: "The roadmap has changed", description: "Discard every open order and milestone, then deal five new briefs.", effect: "refresh" },
-  { id: "c5", name: "Hiring rebate", title: "Free money, briefly", description: "Drafting a talent card earns $2 until the next Chaos Monkey.", effect: "cashback" },
+  { id: "c1", name: "Brand tax", title: "The algorithm changed again", description: "Brand requirements increase by 1 on every Order and Milestone until the next Chaos Monkey.", effect: "skill", stat: "brand", delta: 1 },
+  { id: "c2", name: "Ops breakthrough", title: "Someone finally read the spreadsheet", description: "Operations requirements decrease by 1 on every Order and Milestone until the next Chaos Monkey.", effect: "skill", stat: "operations", delta: -1 },
+  { id: "c3", name: "Talent shuffle", title: "Unexpected re-org", description: "Every founder with Agency or Staff cards must choose one to discard.", effect: "discard" },
+  { id: "c4", name: "New priorities", title: "The roadmap has changed", description: "Replace all five open Orders and Milestones.", effect: "refresh" },
+  { id: "c5", name: "Hiring rebate", title: "A little free money", description: "Drafting from the Talent Market earns $1 until the next Chaos Monkey.", effect: "cashback" },
 ];
-const state = { players: [], currentPlayerIndex: 0, turn: 1, market: [], milestones: [], talentDraw: [], milestoneDraw: [], activeBrief: null, selected: new Set(), sound: true, chaosEnabled: true, activeChaos: null, pendingDiscards: [], endgame: null, upkeepPending: false, startedAt: null, leaderboardSaved: false };
+const state = { players: [], currentPlayerIndex: 0, turn: 1, market: [], milestones: [], talentDraw: [], milestoneDraw: [], activeObjective: null, selected: new Set(), sound: true, chaosEnabled: true, activeChaos: null, pendingDiscards: [], endgame: null, upkeepPending: false, startedAt: null, leaderboardSaved: false };
 const network = { mode: "local", clientId: sessionStorage.getItem("first-order-client") || crypto.randomUUID(), gameId: null, gameCode: null, games: null, unsubscribe: null, hostId: null };
 sessionStorage.setItem("first-order-client", network.clientId);
 const $ = (selector) => document.querySelector(selector);
@@ -97,8 +97,8 @@ function newGame(names = state.players.map(player => player.name), options = {})
   const safeNames = names.length >= 1 ? names : ["Day One Goods"];
   const founders = shuffle(FOUNDER_ARCHETYPES).slice(0, safeNames.length);
   Object.assign(state, {
-    players: safeNames.map((name, index) => ({ id: crypto.randomUUID(), name, founder: founders[index], founderName: options.founderNames?.[index] || founders[index].name, score: 0, cash: 10, debt: 0, hand: [], tools: [], strengths: { [founders[index].stat]: 1 }, color: PLAYER_COLORS[index], clientId: options.clientIds?.[index] || null })),
-    currentPlayerIndex: 0, turn: 1, activeBrief: null, selected: new Set(), chaosEnabled: options.chaosEnabled ?? true, activeChaos: null, pendingDiscards: [], endgame: null, upkeepPending: false, startedAt: Date.now(), leaderboardSaved: false,
+    players: safeNames.map((name, index) => ({ id: crypto.randomUUID(), name, founder: founders[index], founderName: options.founderNames?.[index] || founders[index].name, score: 0, cash: 5 + index, debt: 0, hand: [], tools: [], strengths: { [founders[index].stat]: 1 }, color: PLAYER_COLORS[index], clientId: options.clientIds?.[index] || null })),
+    currentPlayerIndex: 0, turn: 1, activeObjective: null, selected: new Set(), chaosEnabled: options.chaosEnabled ?? true, activeChaos: null, pendingDiscards: [], endgame: null, upkeepPending: false, startedAt: Date.now(), leaderboardSaved: false,
     talentDraw: buildTalentDraw(options.chaosEnabled ?? true), milestoneDraw: buildMilestoneDraw(),
   });
   state.market = state.talentDraw.splice(0, 5);
@@ -151,7 +151,7 @@ function renderPlayers() {
       ${index === state.currentPlayerIndex ? "<em>PLAYING</em>" : ""}<strong class="player-score">${player.score} rep · $${player.cash}${player.debt ? ` · owes $${player.debt}` : ""}</strong>
     </div>`;
   }).join("");
-  const monkey = state.players.length === 1 ? `<div class="player-chip monkey-chip" style="--player-color:#ef9b61"><span class="player-dot">🙈</span><p><b>Chaos Monkey</b><small>Takes a market card after every turn</small></p><strong>1 IN 5</strong><small>chance to steal a brief instead</small></div>` : "";
+  const monkey = state.players.length === 1 ? `<div class="player-chip monkey-chip" style="--player-color:#ef9b61"><span class="player-dot">🙈</span><p><b>Chaos Monkey</b><small>Takes a Talent Market card after every turn</small></p><strong>1 IN 5</strong><small>chance to remove an Order or Milestone</small></div>` : "";
   $("#playerStrip").innerHTML = founders + monkey;
 }
 
@@ -161,7 +161,7 @@ function renderMarket() {
       <div class="card-top" style="background:${card.color}">
         <p class="card-kind">${card.kind}</p><span class="card-number">0${index + 1}</span><h3>${card.name}</h3>${cardArtwork(card.stats)}
       </div>
-      <div class="card-body">${statGrid(card.stats)}<div class="card-economy ${card.type}">${card.type === "tool" ? "Permanent +1 · no upkeep" : "$1 upkeep each round"}</div></div>
+      <div class="card-body">${statGrid(card.stats)}<div class="card-economy ${card.type}">${card.type === "tool" ? "Permanent +1 · no upkeep" : "$1 Upkeep each turn"}</div></div>
     </button>`).join("");
   document.querySelectorAll("[data-market]").forEach(button => button.addEventListener("click", () => draft(Number(button.dataset.market))));
 }
@@ -171,19 +171,19 @@ function renderMilestones() {
     const requirements = effectiveRequirements(card);
     const requirementTotal = Object.values(requirements).reduce((sum, value) => sum + value, 0);
     const reward = card.reward.cash ? `$${card.reward.cash} cash` : `+1 permanent ${STAT_META[card.reward.permanent].label}`;
-    return `<button class="game-card milestone-card" data-milestone="${index}" aria-label="Open brief ${card.name}, ${requirementTotal} total skill" ${!isMyTurn() || state.pendingDiscards.length ? "disabled" : ""}>
+    return `<button class="game-card milestone-card" data-milestone="${index}" aria-label="Open ${card.kind} ${card.name}, ${requirementTotal} total skill" ${!isMyTurn() || state.pendingDiscards.length ? "disabled" : ""}>
       <div class="card-top" style="background:${card.color}"><p class="card-kind">${card.kind} · ${requirementTotal} skill</p><span class="card-number">B${String(index + 1).padStart(2, "0")}</span><h3>${card.name}</h3>${cardArtwork(effectiveRequirements(card))}</div>
       <div class="card-body">${statGrid(effectiveRequirements(card))}
       <div class="reward"><p>REWARD<strong>${reward}</strong></p><span class="points">+${card.points}</span></div></div>
     </button>`;
   }).join("");
-  document.querySelectorAll("[data-milestone]").forEach(button => button.addEventListener("click", () => openBrief(Number(button.dataset.milestone))));
+  document.querySelectorAll("[data-milestone]").forEach(button => button.addEventListener("click", () => openObjective(Number(button.dataset.milestone))));
 }
 
 function renderHand() {
   const player = localPlayer() || currentPlayer();
   $("#handCount").textContent = `${player.hand.length} card${player.hand.length === 1 ? "" : "s"}`;
-  $("#handHint").textContent = player.hand.length ? `${player.name}'s engine · $${player.hand.length} upkeep next turn.` : `${player.name} has no paid team yet. Shopify tools appear under permanent strengths.`;
+  $("#handHint").textContent = player.hand.length ? `${player.name}'s engine · $${player.hand.length} upkeep next turn.` : `${player.name} has no Agency or Staff cards yet. Shopify Tool cards appear under Permanent Skills.`;
   $("#hand").innerHTML = player.hand.length ? player.hand.map(card => `
     <article class="hand-card" style="--card-color:${card.color}"><div class="hand-card-title">${skillIcon(primaryStat(card.stats))}<b>${card.name}</b></div>${statGrid(card.stats, true)}<small class="upkeep-label">$1 upkeep</small></article>`).join("") : `<div class="empty-hand">This workspace is empty — draft some time or talent.</div>`;
 }
@@ -192,7 +192,7 @@ function renderSkillBank() {
   const player = localPlayer() || currentPlayer();
   const cardTotals = {};
   player.hand.forEach(card => Object.entries(card.stats).forEach(([stat, amount]) => cardTotals[stat] = (cardTotals[stat] || 0) + amount));
-  $("#skillBank").innerHTML = `<div class="skill-bank-title"><p class="eyebrow">${escapeHtml(player.name)}</p><b>Skills available for your next brief</b><div class="bank-economy"><span>CASH <strong>$${player.cash}</strong></span><span>CURRENT UPKEEP <strong>$${upkeepCost(player)}</strong></span></div></div>${STAT_ORDER.map(key => {
+  $("#skillBank").innerHTML = `<div class="skill-bank-title"><p class="eyebrow">${escapeHtml(player.name)}</p><b>Skills available for your next Order or Milestone</b><div class="bank-economy"><span>CASH <strong>$${player.cash}</strong></span><span>CURRENT UPKEEP <strong>$${upkeepCost(player)}</strong></span></div></div>${STAT_ORDER.map(key => {
     const cards = cardTotals[key] || 0;
     const permanent = player.strengths[key] || 0;
     return `<div class="skill-total" style="--stat-color:${STAT_META[key].color}"><span>${skillIcon(key)}${STAT_META[key].label}</span><strong>${cards + permanent}</strong><small>${cards} from cards${permanent ? ` + ${permanent} permanent` : ""}</small></div>`;
@@ -236,11 +236,11 @@ function draft(index) {
     player.hand.push(card);
   }
   const earnedCashback = state.activeChaos?.effect === "cashback";
-  if (earnedCashback) player.cash += 2;
+  if (earnedCashback) player.cash += 1;
   const chaos = replenishTalent();
   playTone(360);
   const toolNote = card.type === "tool" ? " · permanent +1" : "";
-  advanceTurn(`${player.name} drafted ${card.name}${toolNote}${earnedCashback ? " · +$2" : ""}`);
+  advanceTurn(`${player.name} drafted ${card.name}${toolNote}${earnedCashback ? " · +$1" : ""}`);
   if (chaos) showChaos(chaos);
 }
 
@@ -282,11 +282,11 @@ function resolveChaos(chaos) {
   if (chaos.effect === "discard") state.pendingDiscards = state.players.filter(player => player.hand.length).map(player => player.id);
 } 
 
-function openBrief(index) {
+function openObjective(index) {
   if (!isMyTurn() || state.pendingDiscards.length || state.upkeepPending) return;
-  state.activeBrief = index;
-  updateBriefDialog();
-  $("#briefDialog").showModal();
+  state.activeObjective = index;
+  updateObjectiveDialog();
+  $("#objectiveDialog").showModal();
 }
 
 function selectedTotals() {
@@ -297,35 +297,35 @@ function canComplete(card, totals = selectedTotals()) {
   return Object.entries(effectiveRequirements(card)).every(([stat, amount]) => (totals[stat] || 0) >= amount);
 }
 
-function updateBriefDialog() {
-  const card = state.milestones[state.activeBrief];
+function updateObjectiveDialog() {
+  const card = state.milestones[state.activeObjective];
   if (!card) return;
   const totals = selectedTotals();
   const requirements = effectiveRequirements(card);
   const requirementTotal = Object.values(requirements).reduce((sum, value) => sum + value, 0);
   const reward = `$${card.reward.cash} cash`;
-  $("#briefContent").innerHTML = `
-    <header class="brief-header" style="background:${card.color}"><p class="eyebrow">${card.kind} brief · ${requirementTotal} total skill · +${card.points} reputation</p><h2>${card.name}</h2><p>Reward: ${reward}</p></header>
-    <div class="brief-progress"><h3>Your engine vs. the brief</h3>${Object.entries(requirements).map(([stat, required]) => {
+  $("#objectiveContent").innerHTML = `
+    <header class="objective-header" style="background:${card.color}"><p class="eyebrow">${card.kind} · ${requirementTotal} total skill · +${card.points} reputation</p><h2>${card.name}</h2><p>Reward: ${reward}</p></header>
+    <div class="objective-progress"><h3>Your engine vs. the requirements</h3>${Object.entries(requirements).map(([stat, required]) => {
       const have = totals[stat] || 0;
       return `<div class="requirement-line" style="--stat-color:${STAT_META[stat].color}"><span>${skillIcon(stat)} ${STAT_META[stat].label}</span><div class="bar"><i style="width:${Math.min(100, have / required * 100)}%"></i></div><strong>${have} / ${required}</strong></div>`;
     }).join("")}</div>
-    <div class="engine-note"><b>Your engine stays intact.</b><p>Agencies, staff, and Shopify tools are not discarded when this brief is completed.</p></div>
-    <div class="dialog-actions"><small>All of your current skills count automatically.</small><button class="primary-button" id="completeBrief" ${canComplete(card, totals) ? "" : "disabled"}>Complete brief</button></div>`;
-  $("#completeBrief").addEventListener("click", completeBrief);
+    <div class="engine-note"><b>Your engine stays intact.</b><p>Agency, Staff, and Shopify Tool cards are not discarded when this ${card.kind} is completed.</p></div>
+    <div class="dialog-actions"><small>All of your current skills count automatically.</small><button class="primary-button" id="completeObjective" ${canComplete(card, totals) ? "" : "disabled"}>Complete ${card.kind}</button></div>`;
+  $("#completeObjective").addEventListener("click", completeObjective);
 }
 
-function completeBrief() {
+function completeObjective() {
   if (!isMyTurn() || state.pendingDiscards.length) return;
   const player = currentPlayer();
-  const card = state.milestones[state.activeBrief];
+  const card = state.milestones[state.activeObjective];
   if (!canComplete(card)) return;
   player.score += card.points;
   if (card.reward.cash) player.cash += card.reward.cash;
   if (card.reward.permanent) player.strengths[card.reward.permanent] = (player.strengths[card.reward.permanent] || 0) + 1;
-  state.milestones.splice(state.activeBrief, 1);
+  state.milestones.splice(state.activeObjective, 1);
   replenish(state.milestones, state.milestoneDraw, milestoneDeck);
-  $("#briefDialog").close();
+  $("#objectiveDialog").close();
   playTone(620, 0.12);
   const triggeredEndgame = triggerEndgameIfNeeded(player);
   advanceTurn(`${player.name} completed ${card.name} · +${card.points} reputation`, triggeredEndgame);
@@ -384,7 +384,7 @@ function maybeShowUpkeep() {
   if (network.mode === "online" && player.clientId !== network.clientId) return;
   const cost = upkeepCost(player);
   $("#upkeepTitle").textContent = `${player.name}, pay your team`;
-  $("#upkeepSummary").textContent = `Agencies and staff cost $1 each. Your upkeep is $${cost}; you have $${player.cash}. Discard any cards you do not want to keep.`;
+  $("#upkeepSummary").textContent = `Agency and Staff cards cost $1 Upkeep each. Your Upkeep is $${cost}; you have $${player.cash}. Discard any cards you do not want to keep.`;
   $("#upkeepCards").innerHTML = player.hand.map((card, index) => `<button data-upkeep-discard="${index}" style="--card-color:${card.color}"><span>${card.kind}</span><b>${escapeHtml(card.name)}</b><small>Discard · save $1</small></button>`).join("");
   $("#payUpkeepButton").textContent = `Pay $${cost} upkeep`;
   $("#payUpkeepButton").disabled = player.cash < cost;
@@ -423,7 +423,7 @@ function runSoloMonkeyTurn() {
     const index = Math.floor(Math.random() * state.milestones.length);
     const [card] = state.milestones.splice(index, 1);
     replenish(state.milestones, state.milestoneDraw, milestoneDeck);
-    return { message: `Chaos Monkey snatched the ${card.name} brief` };
+    return { message: `Chaos Monkey removed ${card.kind} “${card.name}”` };
   }
   const index = Math.floor(Math.random() * state.market.length);
   const [card] = state.market.splice(index, 1);
@@ -576,7 +576,7 @@ function applySnapshot(snapshot) {
   if (!snapshot) return;
   const previousChaosId = state.activeChaos?.id;
   const gameJustEnded = snapshot.endgame?.turnsRemaining === 0 && state.endgame?.turnsRemaining !== 0;
-  Object.assign(state, snapshot, { activeBrief: null, selected: new Set() });
+  Object.assign(state, snapshot, { activeObjective: null, selected: new Set() });
   render();
   if (snapshot.activeChaos?.id && snapshot.activeChaos.id !== previousChaosId) showChaos(snapshot.activeChaos);
   if (gameJustEnded) setTimeout(showFinalResults, 450);
@@ -758,7 +758,7 @@ function notify(message) {
   clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
 }
 
-$("#briefClose").addEventListener("click", () => $("#briefDialog").close());
+$("#objectiveClose").addEventListener("click", () => $("#objectiveDialog").close());
 $("#rulesClose").addEventListener("click", () => $("#rulesDialog").close());
 $("#rulesStart").addEventListener("click", () => $("#rulesDialog").close());
 $("#howToPlayButton").addEventListener("click", () => $("#rulesDialog").showModal());
