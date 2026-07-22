@@ -27,7 +27,7 @@ The opening setup offers three explicit choices:
 - At the start of a turn, pay the full Upkeep or discard Agency and Staff cards until the remaining cost is affordable. The Upkeep view keeps all open Orders and Milestones visible for comparison.
 - A loan provides **$5 cash** and creates **$8 debt**. Repaying $8 is free and does **not** use a turn.
 - Cards form a persistent engine and are **not discarded** when completing Orders or Milestones.
-- Five open **Orders and Milestones** are available. Each requires **3–8 total skill points**, split across its listed skills. Higher-skill cards pay a larger Cash premium.
+- Five open **Orders and Milestones** are available. Each requires **3–8 total skill points**, split across its listed skills. Rewards vary: some are Cash-only, some are Reputation-only, and harder Cash-focused cards generally pay more.
 - Reach **20 reputation with no outstanding loans** to win.
 - In multiplayer, reaching the goal triggers the final stretch: finish the current round and play one final round. The eligible company with the most reputation wins.
 

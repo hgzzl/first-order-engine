@@ -146,8 +146,6 @@ main { overflow: hidden; }
 .market-card .card-top { min-height: 170px; padding: 0; color: var(--ink); background: color-mix(in srgb, var(--card-color) 24%, #fffdf8); box-shadow: inset 0 5px 0 var(--card-color); }
 .market-card .card-top::before { z-index: 1; opacity: 1; background: linear-gradient(180deg, rgba(255,253,248,.08) 34%, rgba(255,253,248,.96) 100%); }
 .market-card-art { position: absolute; inset: 5px 0 0; width: 100%; height: calc(100% - 5px); object-fit: cover; object-position: center; }
-.card-skill-badge { position: absolute; top: 14px; left: 14px; z-index: 2; width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid rgba(24,37,31,.22); border-radius: 4px; background: var(--stat-color); color: var(--white); }
-.card-skill-badge .skill-icon { width: 18px; height: 18px; stroke-width: 2.1; }
 .market-card .card-number { z-index: 2; padding: 5px 7px; border: 1px solid rgba(24,37,31,.22); border-radius: 4px; background: rgba(255,253,248,.88); opacity: 1; backdrop-filter: blur(3px); }
 .market-card .card-top h3 { position: absolute; inset: auto 14px 13px; z-index: 2; max-width: 100%; text-shadow: 0 1px 0 rgba(255,255,255,.8); }
 .market-card .card-body { min-height: 170px; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; padding-bottom: 76px; }

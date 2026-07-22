@@ -24,20 +24,20 @@ T22,Talent Market,Shopify Collabs,Shopify Tool,1,0,0,0,0,1,0,,,Permanent skill
 T23,Talent Market,Shopify POS,Shopify Tool,0,0,0,0,1,1,0,,,Permanent skill
 T24,Talent Market,Shopify Collective,Shopify Tool,0,0,1,0,0,1,0,,,Permanent skill
 O01,Orders & Milestones,First profitable order,Order,3,0,0,0,0,3,0,3,1,
-O02,Orders & Milestones,Weekend market sellout,Order,0,3,0,0,0,3,0,4,1,
+O02,Orders & Milestones,Weekend market sellout,Order,0,3,0,0,0,3,0,4,0,
 O03,Orders & Milestones,Reliable supplier network,Milestone,0,0,4,0,0,4,0,4,2,
-O04,Orders & Milestones,A team that scales,Milestone,0,0,0,4,0,4,0,3,3,
+O04,Orders & Milestones,A team that scales,Milestone,0,0,0,4,0,4,0,0,3,
 O05,Orders & Milestones,Retailer pilot,Order,1,4,0,0,0,5,0,6,2,
-O06,Orders & Milestones,Repeat customer engine,Milestone,4,1,0,0,0,5,0,4,3,
-O07,Orders & Milestones,Two-day dispatch,Milestone,0,5,0,0,1,6,0,9,2,
-O08,Orders & Milestones,Operational excellence,Milestone,0,0,0,1,5,6,0,6,4,
-O09,Orders & Milestones,Holiday rush,Order,0,0,4,2,0,6,0,10,2,
-O10,Orders & Milestones,National press feature,Order,6,0,0,0,1,7,0,7,5,
-O11,Orders & Milestones,"10,000th order",Milestone,0,5,0,0,2,7,0,11,3,
-O12,Orders & Milestones,Flagship collaboration,Order,4,0,3,0,0,7,0,8,4,
-O13,Orders & Milestones,International launch,Milestone,2,4,0,0,2,8,0,12,4,
-O14,Orders & Milestones,BFCM record,Order,0,4,4,0,0,8,0,12,4,
-O15,Orders & Milestones,Category leader,Milestone,3,0,0,0,5,8,0,9,6,
+O06,Orders & Milestones,Repeat customer engine,Milestone,4,1,0,0,0,5,0,3,3,
+O07,Orders & Milestones,Two-day dispatch,Milestone,0,5,0,0,1,6,0,7,0,
+O08,Orders & Milestones,Operational excellence,Milestone,0,0,0,1,5,6,0,0,4,
+O09,Orders & Milestones,Holiday rush,Order,0,0,4,2,0,6,0,8,0,
+O10,Orders & Milestones,National press feature,Order,6,0,0,0,1,7,0,0,5,
+O11,Orders & Milestones,"10,000th order",Milestone,0,5,0,0,2,7,0,9,0,
+O12,Orders & Milestones,Flagship collaboration,Order,4,0,3,0,0,7,0,4,4,
+O13,Orders & Milestones,International launch,Milestone,2,4,0,0,2,8,0,9,4,
+O14,Orders & Milestones,BFCM record,Order,0,4,4,0,0,8,0,10,4,
+O15,Orders & Milestones,Category leader,Milestone,3,0,0,0,5,8,0,0,6,
 C01,Chaos Monkey,Brand tax,Event,0,0,0,0,0,0,0,,,Brand requirements increase by 1 on every Order and Milestone until the next Chaos Monkey event.
 C02,Chaos Monkey,Ops breakthrough,Event,0,0,0,0,0,0,0,,,Operations requirements decrease by 1 on every Order and Milestone until the next Chaos Monkey event.
 C03,Chaos Monkey,Talent shuffle,Event,0,0,0,0,0,0,0,,,Every founder with Agency or Staff cards must choose one to discard.

@@ -87,20 +87,20 @@ const talentDeck = [
 const milestoneDeck = [
   // Objectives deliberately reward different engine shapes: specialists, pairs, and balanced teams.
   ["First profitable order", "Order", { brand: 3 }, { cash: 3 }, 1, "#dbeaa2"],
-  ["Weekend market sellout", "Order", { fulfillment: 3 }, { cash: 4 }, 1, "#f2c0a7"],
+  ["Weekend market sellout", "Order", { fulfillment: 3 }, { cash: 4 }, 0, "#f2c0a7"],
   ["Reliable supplier network", "Milestone", { production: 4 }, { cash: 4 }, 2, "#efd48e"],
-  ["A team that scales", "Milestone", { staffing: 4 }, { cash: 3 }, 3, "#cdbbe8"],
+  ["A team that scales", "Milestone", { staffing: 4 }, { cash: 0 }, 3, "#cdbbe8"],
   ["Retailer pilot", "Order", { fulfillment: 4, brand: 1 }, { cash: 6 }, 2, "#afd0ed"],
-  ["Repeat customer engine", "Milestone", { brand: 4, fulfillment: 1 }, { cash: 4 }, 3, "#eeb6ca"],
-  ["Two-day dispatch", "Milestone", { fulfillment: 5, operations: 1 }, { cash: 9 }, 2, "#b6d2ef"],
-  ["Operational excellence", "Milestone", { operations: 5, staffing: 1 }, { cash: 6 }, 4, "#add8bf"],
-  ["Holiday rush", "Order", { production: 4, staffing: 2 }, { cash: 10 }, 2, "#f0c891"],
-  ["National press feature", "Order", { brand: 6, operations: 1 }, { cash: 7 }, 5, "#f0b2c1"],
-  ["10,000th order", "Milestone", { fulfillment: 5, operations: 2 }, { cash: 11 }, 3, "#cae49c"],
-  ["Flagship collaboration", "Order", { brand: 4, production: 3 }, { cash: 8 }, 4, "#efb99f"],
-  ["International launch", "Milestone", { fulfillment: 4, brand: 2, operations: 2 }, { cash: 12 }, 4, "#b5d7cf"],
-  ["BFCM record", "Order", { production: 4, fulfillment: 4 }, { cash: 12 }, 4, "#e7c37b"],
-  ["Category leader", "Milestone", { operations: 5, brand: 3 }, { cash: 9 }, 6, "#d4b1df"],
+  ["Repeat customer engine", "Milestone", { brand: 4, fulfillment: 1 }, { cash: 3 }, 3, "#eeb6ca"],
+  ["Two-day dispatch", "Milestone", { fulfillment: 5, operations: 1 }, { cash: 7 }, 0, "#b6d2ef"],
+  ["Operational excellence", "Milestone", { operations: 5, staffing: 1 }, { cash: 0 }, 4, "#add8bf"],
+  ["Holiday rush", "Order", { production: 4, staffing: 2 }, { cash: 8 }, 0, "#f0c891"],
+  ["National press feature", "Order", { brand: 6, operations: 1 }, { cash: 0 }, 5, "#f0b2c1"],
+  ["10,000th order", "Milestone", { fulfillment: 5, operations: 2 }, { cash: 9 }, 0, "#cae49c"],
+  ["Flagship collaboration", "Order", { brand: 4, production: 3 }, { cash: 4 }, 4, "#efb99f"],
+  ["International launch", "Milestone", { fulfillment: 4, brand: 2, operations: 2 }, { cash: 9 }, 4, "#b5d7cf"],
+  ["BFCM record", "Order", { production: 4, fulfillment: 4 }, { cash: 10 }, 4, "#e7c37b"],
+  ["Category leader", "Milestone", { operations: 5, brand: 3 }, { cash: 0 }, 6, "#d4b1df"],
 ].map(([name, kind, requirements, reward, points, color], id) => ({ id: `m${id}`, name, kind, requirements, reward, points, color }));
 
 const WIN_SCORE = 20;
@@ -130,6 +130,10 @@ const shuffle = (items) => [...items].sort(() => Math.random() - 0.5);
 const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", "\"": "&quot;" })[character]);
 const skillIcon = (stat, className = "") => `<svg class="skill-icon ${className}" aria-hidden="true"><use href="#icon-${stat}"></use></svg>`;
 const primaryStat = (stats) => Object.entries(stats).sort((a, b) => b[1] - a[1])[0]?.[0] || "operations";
+const objectiveRewardText = (card, abbreviated = false) => [
+  card.reward.cash ? `$${card.reward.cash}${abbreviated ? "" : " cash"}` : "",
+  card.points ? `+${card.points} ${abbreviated ? "rep" : "reputation"}` : "",
+].filter(Boolean).join(" · ");
 const talentArtwork = (stats) => {
   const stat = primaryStat(stats);
   return `<img class="market-card-art" src="${TALENT_ART[stat]}" alt="" aria-hidden="true" decoding="async" />`;
@@ -228,7 +232,7 @@ function renderMarket() {
     return `
       <button class="game-card market-card" data-market="${index}" aria-label="Draft ${card.name}, ${card.kind}, primary skill ${primaryLabel}" ${!isMyTurn() || state.pendingDiscards.length ? "disabled" : ""}>
         <div class="card-top" style="--card-color:${card.color}">
-          ${talentArtwork(card.stats)}<span class="card-skill-badge" style="--stat-color:${STAT_META[primary].color}" title="${primaryLabel}">${skillIcon(primary)}</span><span class="card-number">0${index + 1}</span><h3>${card.name}</h3>
+          ${talentArtwork(card.stats)}<span class="card-number">0${index + 1}</span><h3>${card.name}</h3>
         </div>
         <div class="card-body"><p class="card-flavour">“${escapeHtml(CARD_FLAVOUR[card.name] || "Build it. Ship it. Learn fast.")}”</p><div class="card-economy ${card.type}">${card.type === "tool" ? "Permanent +1 · no upkeep" : "$1 Upkeep each turn"}</div></div>
         ${marketCardFooter(card.stats)}
@@ -243,11 +247,12 @@ function renderMilestones() {
     const requirements = effectiveRequirements(card);
     const requirementTotal = Object.values(requirements).reduce((sum, value) => sum + value, 0);
     const ready = canComplete(card, playerSkills);
-    const reward = card.reward.cash ? `$${card.reward.cash} cash` : `+1 permanent ${STAT_META[card.reward.permanent].label}`;
+    const reward = card.reward.cash ? `$${card.reward.cash} cash` : "No cash";
+    const rewardLabel = !card.reward.cash ? "REPUTATION ONLY" : !card.points ? "CASH ONLY" : card.points >= card.reward.cash ? "REPUTATION FOCUS" : card.reward.cash >= card.points + 5 ? "CASH FOCUS" : "REWARD";
     return `<button class="game-card milestone-card ${ready ? "can-complete" : ""}" data-milestone="${index}" aria-label="Open ${card.kind} ${card.name}, ${requirementTotal} total skill${ready ? ", ready to complete" : ""}" ${!isMyTurn() || state.pendingDiscards.length ? "disabled" : ""}>
       <div class="card-top" style="background:${card.color}"><p class="card-kind">${card.kind} · ${requirementTotal} skill</p>${ready ? `<span class="ready-badge">✓ READY</span>` : ""}<span class="card-number">B${String(index + 1).padStart(2, "0")}</span><h3>${card.name}</h3>${cardArtwork(requirements)}</div>
       <div class="card-body">${statGrid(requirements, false, true)}
-      <div class="reward"><p>REWARD<strong>${reward}</strong></p><span class="points">+${card.points}</span></div></div>
+      <div class="reward"><p>${rewardLabel}<strong>${reward}</strong></p><span class="points" title="${card.points ? `+${card.points} reputation` : "No reputation"}">${card.points ? `+${card.points}` : "—"}</span></div></div>
     </button>`;
   }).join("");
   document.querySelectorAll("[data-milestone]").forEach(button => button.addEventListener("click", () => openObjective(Number(button.dataset.milestone))));
@@ -396,9 +401,9 @@ function updateObjectiveDialog() {
   const totals = selectedTotals();
   const requirements = effectiveRequirements(card);
   const requirementTotal = Object.values(requirements).reduce((sum, value) => sum + value, 0);
-  const reward = `$${card.reward.cash} cash`;
+  const reward = objectiveRewardText(card);
   $("#objectiveContent").innerHTML = `
-    <header class="objective-header" style="background:${card.color}"><p class="eyebrow">${card.kind} · ${requirementTotal} total skill · +${card.points} reputation</p><h2>${card.name}</h2><p>Reward: ${reward}</p></header>
+    <header class="objective-header" style="background:${card.color}"><p class="eyebrow">${card.kind} · ${requirementTotal} total skill · ${card.points ? `+${card.points} reputation` : "cash only"}</p><h2>${card.name}</h2><p>Reward: ${reward}</p></header>
     <div class="objective-progress"><h3>Your engine vs. the requirements</h3>${Object.entries(requirements).map(([stat, required]) => {
       const have = totals[stat] || 0;
       return `<div class="requirement-line" style="--stat-color:${STAT_META[stat].color}"><span>${skillIcon(stat)} ${STAT_META[stat].label}</span><div class="bar"><i style="width:${Math.min(100, have / required * 100)}%"></i></div><strong>${have} / ${required}</strong></div>`;
@@ -421,7 +426,7 @@ function completeObjective() {
   $("#objectiveDialog").close();
   playTone(620, 0.12);
   const triggeredEndgame = triggerEndgameIfNeeded(player);
-  advanceTurn(`${player.name} completed ${card.name} · +${card.points} reputation`, triggeredEndgame);
+  advanceTurn(`${player.name} completed ${card.name} · ${objectiveRewardText(card)}`, triggeredEndgame);
 }
 
 function refreshMarket() {
@@ -495,7 +500,7 @@ function maybeShowUpkeep() {
     const total = Object.values(requirements).reduce((sum, value) => sum + value, 0);
     const skills = Object.entries(requirements).map(([stat, value]) => `<span style="--stat-color:${STAT_META[stat].color}">${skillIcon(stat)}${value}</span>`).join("");
     const ready = canComplete(card, totalSkills(player));
-    return `<article class="${ready ? "can-complete" : ""}"><p><small>${card.kind} · ${total} skill</small><b>${escapeHtml(card.name)}</b></p><div>${skills}</div><strong>${ready ? "✓ READY · " : ""}$${card.reward.cash} · +${card.points} rep</strong></article>`;
+    return `<article class="${ready ? "can-complete" : ""}"><p><small>${card.kind} · ${total} skill</small><b>${escapeHtml(card.name)}</b></p><div>${skills}</div><strong>${ready ? "✓ READY · " : ""}${objectiveRewardText(card, true)}</strong></article>`;
   }).join("");
   $("#payUpkeepButton").textContent = `Pay $${cost} upkeep`;
   $("#payUpkeepButton").disabled = player.cash < cost;
