@@ -29,6 +29,10 @@ A one-player game is a race against market disruption. After every player turn, 
 
 On Shopify Quick, successful games against the monkey are recorded in `quick.db`. The leaderboard ranks the ten debt-free wins with the **fewest turns**.
 
+## Card inventory
+
+The complete deck list is available as [`card-inventory.csv`](card-inventory.csv), including card types, skill values, Upkeep, Cash rewards, Reputation rewards, and event effects.
+
 ## Online play
 
 The Quick deployment uses `/client/quick.js` and `quick.db` subscriptions for live cross-device games. The implementation is plain HTML, CSS, and JavaScript with no build step.

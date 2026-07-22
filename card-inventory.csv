@@ -1,0 +1,50 @@
+card_id,category,title,card_type,brand,fulfillment,production,staffing,operations,total_skill,upkeep,cash_reward,reputation_reward,effect
+T01,Talent Market,Launch Lab,Agency,2,0,1,0,0,3,1,,,
+T02,Talent Market,Northstar Creative,Agency,2,0,0,0,1,3,1,,,
+T03,Talent Market,Conversion Studio,Agency,1,1,0,0,1,3,1,,,
+T04,Talent Market,Supply Chain Partners,Agency,0,1,2,0,0,3,1,,,
+T05,Talent Market,Growth Collective,Agency,2,0,0,1,0,3,1,,,
+T06,Talent Market,Product Design House,Agency,1,0,2,0,0,3,1,,,
+T07,Talent Market,Operations Consultancy,Agency,0,0,0,1,2,3,1,,,
+T08,Talent Market,Logistics Network,Agency,0,2,0,0,1,3,1,,,
+T09,Talent Market,Brand Director,Staff,3,0,0,0,0,3,1,,,
+T10,Talent Market,Fulfillment Lead,Staff,0,3,0,0,0,3,1,,,
+T11,Talent Market,Production Manager,Staff,0,0,3,0,0,3,1,,,
+T12,Talent Market,People Lead,Staff,0,0,0,3,0,3,1,,,
+T13,Talent Market,Operations Manager,Staff,0,0,0,0,3,3,1,,,
+T14,Talent Market,Customer Success Rep,Staff,1,2,0,0,0,3,1,,,
+T15,Talent Market,Inventory Planner,Staff,0,0,1,0,2,3,1,,,
+T16,Talent Market,Warehouse Crew,Staff,0,2,0,1,0,3,1,,,
+T17,Talent Market,Shopify Flow,Shopify Tool,0,0,0,0,1,1,0,,,Permanent skill
+T18,Talent Market,Shopify Sidekick,Shopify Tool,0,0,0,1,0,1,0,,,Permanent skill
+T19,Talent Market,Shopify Markets,Shopify Tool,1,0,0,0,0,1,0,,,Permanent skill
+T20,Talent Market,Shopify Shipping,Shopify Tool,0,1,0,0,0,1,0,,,Permanent skill
+T21,Talent Market,Shopify Bundles,Shopify Tool,0,0,1,0,0,1,0,,,Permanent skill
+T22,Talent Market,Shopify Collabs,Shopify Tool,1,0,0,0,0,1,0,,,Permanent skill
+T23,Talent Market,Shopify POS,Shopify Tool,0,0,0,0,1,1,0,,,Permanent skill
+T24,Talent Market,Shopify Collective,Shopify Tool,0,0,1,0,0,1,0,,,Permanent skill
+O01,Orders & Milestones,First profitable order,Order,2,0,1,0,0,3,0,2,1,
+O02,Orders & Milestones,Weekend market sellout,Order,1,2,0,0,0,3,0,2,1,
+O03,Orders & Milestones,Reliable supplier network,Milestone,0,0,2,0,2,4,0,3,2,
+O04,Orders & Milestones,A team that scales,Milestone,0,0,0,2,2,4,0,3,2,
+O05,Orders & Milestones,Retailer pilot,Order,0,3,2,0,0,5,0,4,2,
+O06,Orders & Milestones,Repeat customer engine,Milestone,3,2,0,0,0,5,0,4,2,
+O07,Orders & Milestones,Two-day dispatch,Milestone,0,3,0,0,3,6,0,6,3,
+O08,Orders & Milestones,Operational excellence,Milestone,0,0,0,3,3,6,0,6,3,
+O09,Orders & Milestones,Holiday rush,Order,0,2,2,2,0,6,0,6,3,
+O10,Orders & Milestones,National press feature,Order,4,0,3,0,0,7,0,7,3,
+O11,Orders & Milestones,"10,000th order",Milestone,2,3,0,0,2,7,0,7,4,
+O12,Orders & Milestones,Flagship collaboration,Order,3,0,2,2,0,7,0,7,4,
+O13,Orders & Milestones,International launch,Milestone,3,2,0,0,3,8,0,9,4,
+O14,Orders & Milestones,BFCM record,Order,0,3,3,2,0,8,0,10,5,
+O15,Orders & Milestones,Category leader,Milestone,3,0,2,0,3,8,0,10,5,
+C01,Chaos Monkey,Brand tax,Event,0,0,0,0,0,0,0,,,Brand requirements increase by 1 on every Order and Milestone until the next Chaos Monkey event.
+C02,Chaos Monkey,Ops breakthrough,Event,0,0,0,0,0,0,0,,,Operations requirements decrease by 1 on every Order and Milestone until the next Chaos Monkey event.
+C03,Chaos Monkey,Talent shuffle,Event,0,0,0,0,0,0,0,,,Every founder with Agency or Staff cards must choose one to discard.
+C04,Chaos Monkey,New priorities,Event,0,0,0,0,0,0,0,,,Replace all five open Orders and Milestones.
+C05,Chaos Monkey,Hiring rebate,Event,0,0,0,0,0,0,0,,,Drafting from the Talent Market earns $1 until the next Chaos Monkey event.
+F01,Founder,The Storyteller,Founder,1,0,0,0,0,1,0,,,Permanent Founder skill
+F02,Founder,The Logistics Pro,Founder,0,1,0,0,0,1,0,,,Permanent Founder skill
+F03,Founder,The Maker,Founder,0,0,1,0,0,1,0,,,Permanent Founder skill
+F04,Founder,The People Builder,Founder,0,0,0,1,0,1,0,,,Permanent Founder skill
+F05,Founder,The Systems Thinker,Founder,0,0,0,0,1,1,0,,,Permanent Founder skill
