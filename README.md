@@ -43,6 +43,8 @@ The complete deck list is available as [`card-inventory.csv`](card-inventory.csv
 
 A sample illustrated card is available as [SVG](art/launch-lab-card.svg) and [PNG](art/launch-lab-card.png).
 
+Talent, Founder, and Chaos Monkey illustrations use optimized derivatives from the shared [Race to IPO image folder](https://drive.google.com/drive/folders/1nz-ynLoEU8maxp_2X2vZnEvyzs4C3yT4).
+
 ## Online play
 
 The Quick deployment uses `/client/quick.js` and `quick.db` subscriptions for live cross-device games. The implementation is plain HTML, CSS, and JavaScript with no build step.

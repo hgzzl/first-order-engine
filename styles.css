@@ -69,7 +69,9 @@ main { overflow: hidden; }
 .player-chip::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--player-color); opacity: .7; }
 .player-chip.active { border-color: var(--green); background: var(--white); box-shadow: 0 8px 22px rgba(28,42,34,.14); opacity: 1; transform: translateY(-3px); }
 .player-chip.active::before { width: 7px; opacity: 1; }
-.player-dot { width: 36px; height: 36px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 50%; background: var(--player-color); box-shadow: inset 0 0 0 1px rgba(24,37,31,.1); font: 700 12px "DM Mono"; }
+.player-dot, .player-avatar { width: 42px; height: 42px; flex: 0 0 auto; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(24,37,31,.1); }
+.player-dot { display: grid; place-items: center; background: var(--player-color); font: 700 12px "DM Mono"; }
+.player-avatar { object-fit: cover; border: 2px solid var(--player-color); background: var(--player-color); }
 .player-chip p { min-width: 0; margin: 0; line-height: 1.05; }
 .player-chip b { display: block; overflow: hidden; font-size: 14px; letter-spacing: -.02em; text-overflow: ellipsis; white-space: nowrap; }
 .player-chip p small { display: block; margin-top: 7px; color: var(--muted); font: 500 9px "DM Mono"; line-height: 1.25; }
@@ -79,7 +81,7 @@ main { overflow: hidden; }
 .player-skills .skill-icon { width: 17px; height: 17px; padding: 3px; border-radius: 50%; background: var(--stat-color); color: white; stroke-width: 2.2; }
 .player-skills small { color: #626e67; font: 700 10px "DM Mono"; }
 .player-score { grid-column: 2 / 4; color: #526159; font: 700 9px "DM Mono"; letter-spacing: .02em; }
-.player-chip .player-dot { grid-row: 1 / 4; }
+.player-chip .player-dot, .player-chip .player-avatar { grid-row: 1 / 4; }
 .monkey-chip { align-content: center; border-color: #dfb18f; background: #fff4e9; }
 .monkey-chip > strong { grid-column: 2; color: var(--orange); font: 700 13px "DM Mono"; }
 .monkey-chip > small { grid-column: 2 / 4; color: var(--muted); font: 600 8px "DM Mono"; text-transform: uppercase; }
@@ -146,7 +148,7 @@ main { overflow: hidden; }
 .market-card .card-number { z-index: 2; padding: 5px 7px; border: 1px solid rgba(24,37,31,.22); border-radius: 4px; background: rgba(255,253,248,.88); opacity: 1; backdrop-filter: blur(3px); }
 .market-card .card-top h3 { position: absolute; inset: auto 14px 13px; z-index: 2; max-width: 100%; text-shadow: 0 1px 0 rgba(255,255,255,.8); }
 .market-card .card-body { min-height: 170px; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; padding-bottom: 76px; }
-.card-flavour { min-height: 34px; margin: 0 2px; color: #66736c; font: italic 10px/1.45 Georgia, serif; }
+.card-flavour { min-height: 34px; margin: 0 2px; color: #35463d; font: 800 11px/1.4 Manrope, sans-serif; letter-spacing: -.012em; }
 .market-card-footer { position: absolute; inset: auto 0 0; z-index: 2; display: flex; border-top: 1px solid rgba(24,37,31,.14); }
 .market-card-stat { flex: 1 1 0; min-height: 56px; display: flex; justify-content: center; align-items: center; gap: 8px; padding: 11px 9px; border-right: 1px solid rgba(255,253,248,.34); background: var(--stat-color); color: #fffdf8; font: 700 15px "DM Mono"; text-shadow: 0 1px 0 rgba(24,37,31,.12); }
 .market-card-stat:last-child { border-right: 0; }
@@ -237,7 +239,9 @@ main { overflow: hidden; }
 .lobby-seat b { font-size: 11px; }
 #lobbyStatus { color: var(--muted); font-size: 10px; text-align: center; }
 .chaos-dialog { text-align: center; border: 3px solid var(--orange); }
-.chaos-face { width: 72px; height: 72px; display: grid; place-items: center; margin: -4px auto 15px; border-radius: 50%; background: #ffe0cc; font-size: 35px; }
+.chaos-face { width: 150px; height: 150px; position: relative; display: grid; place-items: center; overflow: hidden; margin: -4px auto 15px; border: 3px solid #df8650; border-radius: 18px; background: #ffe0cc; font-size: 35px; box-shadow: 0 10px 24px rgba(90,45,22,.16); }
+.chaos-face img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.chaos-face img:not([hidden]) + span { display: none; }
 .chaos-dialog h2 { margin: 7px 0 9px; font-size: 25px; letter-spacing: -.04em; }
 .chaos-dialog > p:not(.eyebrow) { margin: 0 auto 22px; max-width: 380px; color: var(--muted); font-size: 12px; line-height: 1.5; }
 .discard-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px; max-height: 300px; overflow: auto; }

@@ -14,6 +14,22 @@ const TALENT_ART = {
   operations: "assets/talent/operations.webp",
 };
 
+const FOUNDER_ART = {
+  brand: "assets/founders/brand.webp",
+  fulfillment: "assets/founders/fulfillment.webp",
+  production: "assets/founders/production.webp",
+  staffing: "assets/founders/staffing.webp",
+  operations: "assets/founders/operations.webp",
+};
+
+const CHAOS_ART = {
+  c1: "assets/chaos/brand-tax.webp",
+  c2: "assets/chaos/ops-breakthrough.webp",
+  c3: "assets/chaos/talent-shuffle.webp",
+  c4: "assets/chaos/new-priorities.webp",
+  c5: "assets/chaos/hiring-rebate.webp",
+};
+
 const CARD_FLAVOUR = {
   "Launch Lab": "Your launch plan has a launch plan.",
   "Northstar Creative": "The brand deck finally stopped saying ‘TBD.’",
@@ -195,7 +211,7 @@ function renderPlayers() {
   const founders = state.players.map((player, index) => {
     const totals = totalSkills(player);
     return `<div class="player-chip ${index === state.currentPlayerIndex ? "active" : ""}" style="--player-color:${player.color}">
-      <span class="player-dot">${index + 1}</span><p><b>${escapeHtml(player.name)}</b><small>${escapeHtml(player.founderName || player.founder?.name || "Founder")} · +1 ${STAT_META[player.founder?.stat || Object.keys(player.strengths)[0]]?.label}</small></p>
+      <img class="player-avatar" src="${FOUNDER_ART[player.founder?.stat || Object.keys(player.strengths)[0]]}" alt="" aria-hidden="true" /><p><b>${escapeHtml(player.name)}</b><small>${escapeHtml(player.founderName || player.founder?.name || "Founder")} · +1 ${STAT_META[player.founder?.stat || Object.keys(player.strengths)[0]]?.label}</small></p>
       <div class="player-skills">${STAT_ORDER.map(stat => `<span style="--stat-color:${STAT_META[stat].color}" title="${STAT_META[stat].label}" aria-label="${STAT_META[stat].label}: ${totals[stat] || 0}">${skillIcon(stat)}<small>${STAT_META[stat].label[0]}</small>${totals[stat] || 0}</span>`).join("")}</div>
       ${index === state.currentPlayerIndex ? "<em>PLAYING</em>" : ""}<strong class="player-score">${player.score} rep · $${player.cash}${player.debt ? ` · owes $${player.debt}` : ""}</strong>
     </div>`;
@@ -833,6 +849,8 @@ async function commitNetworkState() {
 }
 
 function showChaos(chaos) {
+  $("#chaosArt").src = CHAOS_ART[chaos.id] || "";
+  $("#chaosArt").hidden = !CHAOS_ART[chaos.id];
   $("#chaosTitle").textContent = chaos.title;
   $("#chaosDescription").textContent = chaos.description;
   $("#discardChoices").innerHTML = "";
