@@ -27,7 +27,7 @@ Then open [http://localhost:4174](http://localhost:4174).
 
 A one-player game is a race against market disruption. After every player turn, the Chaos Monkey takes one card from the Talent Market. On a 1-in-5 roll, it removes an open Order or Milestone instead. Removed cards are immediately replaced. Optional Chaos Monkey event cards can be enabled separately.
 
-On Shopify Quick, successful games against the monkey are recorded in `quick.db`. The leaderboard ranks the ten fastest debt-free wins and shows completion time and turn count.
+On Shopify Quick, successful games against the monkey are recorded in `quick.db`. The leaderboard ranks the ten debt-free wins with the **fewest turns**.
 
 ## Online play
 

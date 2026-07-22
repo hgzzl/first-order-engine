@@ -67,7 +67,7 @@ const CHAOS_CARDS = [
   { id: "c4", name: "New priorities", title: "The roadmap has changed", description: "Replace all five open Orders and Milestones.", effect: "refresh" },
   { id: "c5", name: "Hiring rebate", title: "A little free money", description: "Drafting from the Talent Market earns $1 until the next Chaos Monkey.", effect: "cashback" },
 ];
-const state = { players: [], currentPlayerIndex: 0, turn: 1, market: [], milestones: [], talentDraw: [], milestoneDraw: [], activeObjective: null, selected: new Set(), sound: true, chaosEnabled: true, activeChaos: null, pendingDiscards: [], endgame: null, upkeepPending: false, startedAt: null, leaderboardSaved: false };
+const state = { players: [], currentPlayerIndex: 0, turn: 1, market: [], milestones: [], talentDraw: [], milestoneDraw: [], activeObjective: null, selected: new Set(), sound: true, chaosEnabled: true, activeChaos: null, pendingDiscards: [], endgame: null, upkeepPending: false, leaderboardSaved: false };
 const network = { mode: "local", clientId: sessionStorage.getItem("first-order-client") || crypto.randomUUID(), gameId: null, gameCode: null, games: null, unsubscribe: null, hostId: null };
 sessionStorage.setItem("first-order-client", network.clientId);
 const $ = (selector) => document.querySelector(selector);
@@ -98,7 +98,7 @@ function newGame(names = state.players.map(player => player.name), options = {})
   const founders = shuffle(FOUNDER_ARCHETYPES).slice(0, safeNames.length);
   Object.assign(state, {
     players: safeNames.map((name, index) => ({ id: crypto.randomUUID(), name, founder: founders[index], founderName: options.founderNames?.[index] || founders[index].name, score: 0, cash: 5 + index, debt: 0, hand: [], tools: [], strengths: { [founders[index].stat]: 1 }, color: PLAYER_COLORS[index], clientId: options.clientIds?.[index] || null })),
-    currentPlayerIndex: 0, turn: 1, activeObjective: null, selected: new Set(), chaosEnabled: options.chaosEnabled ?? true, activeChaos: null, pendingDiscards: [], endgame: null, upkeepPending: false, startedAt: Date.now(), leaderboardSaved: false,
+    currentPlayerIndex: 0, turn: 1, activeObjective: null, selected: new Set(), chaosEnabled: options.chaosEnabled ?? true, activeChaos: null, pendingDiscards: [], endgame: null, upkeepPending: false, leaderboardSaved: false,
     talentDraw: buildTalentDraw(options.chaosEnabled ?? true), milestoneDraw: buildMilestoneDraw(),
   });
   state.market = state.talentDraw.splice(0, 5);
@@ -467,12 +467,6 @@ function showFinalResults() {
   recordSoloResult();
 }
 
-function formatDuration(milliseconds) {
-  const seconds = Math.max(0, Math.round(milliseconds / 1000));
-  const minutes = Math.floor(seconds / 60);
-  return `${minutes}:${String(seconds % 60).padStart(2, "0")}`;
-}
-
 async function recordSoloResult() {
   if (state.players.length !== 1 || state.leaderboardSaved || currentPlayer().debt > 0) return;
   if (!await window.quickReady || !window.quick?.db) return;
@@ -484,22 +478,21 @@ async function recordSoloResult() {
       founder: player.founderName,
       score: player.score,
       turns: state.turn - 1,
-      duration_ms: Date.now() - state.startedAt,
       completed_at: new Date().toISOString(),
     });
   } catch { state.leaderboardSaved = false; }
 }
 
 async function showLeaderboard() {
-  $("#leaderboardList").innerHTML = `<p class="leaderboard-loading">Loading fastest founders…</p>`;
+  $("#leaderboardList").innerHTML = `<p class="leaderboard-loading">Loading the fewest-turn wins…</p>`;
   if (!$("#leaderboardDialog").open) $("#leaderboardDialog").showModal();
   if (!await window.quickReady || !window.quick?.db) {
     $("#leaderboardList").innerHTML = `<p class="leaderboard-loading">The live leaderboard is available on the Quick deployment.</p>`;
     return;
   }
   try {
-    const results = await quick.db.collection("first_order_engine_leaderboard").orderBy("duration_ms", "asc").limit(10).find();
-    $("#leaderboardList").innerHTML = results.length ? results.map((entry, index) => `<div class="leaderboard-row"><b>${index + 1}</b><p><strong>${escapeHtml(entry.company)}</strong><small>${escapeHtml(entry.founder || "Founder")} · ${entry.turns} turns</small></p><span>${formatDuration(entry.duration_ms)}</span></div>`).join("") : `<p class="leaderboard-loading">No solo wins yet. Be the first.</p>`;
+    const results = await quick.db.collection("first_order_engine_leaderboard").orderBy("turns", "asc").limit(10).find();
+    $("#leaderboardList").innerHTML = results.length ? results.map((entry, index) => `<div class="leaderboard-row"><b>${index + 1}</b><p><strong>${escapeHtml(entry.company)}</strong><small>${escapeHtml(entry.founder || "Founder")}</small></p><span>${entry.turns} turn${Number(entry.turns) === 1 ? "" : "s"}</span></div>`).join("") : `<p class="leaderboard-loading">No solo wins yet. Be the first.</p>`;
   } catch {
     $("#leaderboardList").innerHTML = `<p class="leaderboard-loading">Leaderboard unavailable. Try again shortly.</p>`;
   }
@@ -568,7 +561,7 @@ function gameSnapshot() {
     market: state.market, milestones: state.milestones, talentDraw: state.talentDraw,
     milestoneDraw: state.milestoneDraw, chaosEnabled: state.chaosEnabled,
     activeChaos: state.activeChaos, pendingDiscards: state.pendingDiscards, endgame: state.endgame,
-    upkeepPending: state.upkeepPending, startedAt: state.startedAt, leaderboardSaved: state.leaderboardSaved,
+    upkeepPending: state.upkeepPending, leaderboardSaved: state.leaderboardSaved,
   };
 }
 
