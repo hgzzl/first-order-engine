@@ -99,7 +99,7 @@ function newGame(names = state.players.map(player => player.name), options = {})
   Object.assign(state, {
     players: safeNames.map((name, index) => ({ id: crypto.randomUUID(), name, founder: founders[index], founderName: options.founderNames?.[index] || founders[index].name, score: 0, cash: 10, debt: 0, hand: [], tools: [], strengths: { [founders[index].stat]: 1 }, color: PLAYER_COLORS[index], clientId: options.clientIds?.[index] || null })),
     currentPlayerIndex: 0, turn: 1, activeBrief: null, selected: new Set(), chaosEnabled: options.chaosEnabled ?? true, activeChaos: null, pendingDiscards: [], endgame: null, upkeepPending: false, startedAt: Date.now(), leaderboardSaved: false,
-    talentDraw: buildTalentDraw(options.chaosEnabled ?? true), milestoneDraw: shuffle(milestoneDeck),
+    talentDraw: buildTalentDraw(options.chaosEnabled ?? true), milestoneDraw: buildMilestoneDraw(),
   });
   state.market = state.talentDraw.splice(0, 5);
   state.milestones = state.milestoneDraw.splice(0, 5);
@@ -200,10 +200,24 @@ function renderStrengths() {
 }
 
 function buildTalentDraw(chaosEnabled) {
-  const talents = shuffle(talentDeck);
-  if (!chaosEnabled) return talents;
+  const agencies = shuffle(talentDeck.filter(card => card.type === "agency"));
+  const staffing = shuffle(talentDeck.filter(card => card.type === "staffing"));
+  const tools = shuffle(talentDeck.filter(card => card.type === "tool"));
+  const opening = [agencies.shift(), staffing.shift(), tools.shift()];
+  const remainder = shuffle([...agencies, ...staffing, ...tools]);
+  opening.push(remainder.shift(), remainder.shift());
+  if (!chaosEnabled) return [...shuffle(opening), ...remainder];
   const chaos = CHAOS_CARDS.map(card => ({ ...card, chaos: true, kind: "Chaos Monkey" }));
-  return [...talents.slice(0, 5), ...shuffle([...talents.slice(5), ...chaos])];
+  return [...shuffle(opening), ...shuffle([...remainder, ...chaos])];
+}
+
+function buildMilestoneDraw() {
+  const maxRequirement = card => Math.max(...Object.values(card.requirements));
+  const easy = shuffle(milestoneDeck.filter(card => maxRequirement(card) <= 4));
+  const medium = shuffle(milestoneDeck.filter(card => maxRequirement(card) === 5));
+  const hard = shuffle(milestoneDeck.filter(card => maxRequirement(card) === 6));
+  const opening = [easy.shift(), easy.shift(), medium.shift(), medium.shift(), hard.shift()];
+  return [...shuffle(opening), ...shuffle([...easy, ...medium, ...hard])];
 }
 
 function draft(index) {
