@@ -66,7 +66,7 @@
         <div class="cash-actions">
           <button class="invest-button" id="refreshMarketButton" disabled><span>↻</span><p>REFRESH MARKET<small>$1 · Orders & Milestones stay</small></p></button>
           <button class="invest-button" id="takeLoanButton"><span>+$</span><p>TAKE LOAN<small>Get $5 · owe $8</small></p></button>
-          <button class="invest-button" id="repayLoanButton" disabled><span>✓</span><p>REPAY LOAN<small>Pay $8</small></p></button>
+          <button class="invest-button" id="repayLoanButton" disabled><span>✓</span><p>REPAY LOAN<small>Pay $8 · free action</small></p></button>
         </div>
       </div>
     </section>
@@ -117,7 +117,7 @@
       <li><span>01</span><div><b>Start with cash and a Founder.</b><p>The first company starts with $5; each later company starts with $1 more. Your Founder provides one permanent skill. Draft from the Talent Market or complete an Order or Milestone each turn.</p></div></li>
       <li><span>02</span><div><b>Choose how you scale.</b><p>Agency and Staff cards provide 2–3 skill points but each costs $1 Upkeep. Shopify Tool cards provide one permanent skill with no Upkeep.</p></div></li>
       <li><span>03</span><div><b>Pay—or make cuts.</b><p>At the start of your turn, pay the full Upkeep or discard Agency and Staff cards until you can afford it.</p></div></li>
-      <li><span>04</span><div><b>Borrow carefully.</b><p>A loan gives you $5 immediately but creates $8 of debt. Repaying $8 uses your turn. You cannot win while any loan remains.</p></div></li>
+      <li><span>04</span><div><b>Borrow carefully.</b><p>A loan gives you $5 immediately but creates $8 of debt. Repaying $8 is free and does not use your turn. You cannot win while any loan remains.</p></div></li>
       <li><span>05</span><div><b>Your engine is persistent.</b><p>Completing Orders and Milestones earns Cash and Reputation without discarding engine cards. Each requires 3–8 total skill points, split across its listed skills. Higher-skill cards pay more Cash.</p></div></li>
       <li><span>06</span><div><b>Win with 20 reputation and no debt.</b><p>Solo games finish immediately. Multiplayer games finish the current round, play one final round, and award the win to the most reputable debt-free company.</p></div></li>
       <li><span>07</span><div><b>Play against the Chaos Monkey solo.</b><p>After every solo turn, the monkey takes one card from the Talent Market. It has a 1-in-5 chance to remove an open Order or Milestone instead. Optional event cards add even more chaos.</p></div></li>
@@ -168,6 +168,8 @@
 
   <dialog id="upkeepDialog" class="game-dialog upkeep-dialog">
     <p class="eyebrow">TURN UPKEEP</p><h2 id="upkeepTitle">Pay your team</h2><p id="upkeepSummary"></p>
+    <div id="upkeepMoney" class="upkeep-money"></div>
+    <div class="dismiss-callout"><span>✂</span><p><b>YOU CAN DISMISS TEAM MEMBERS</b><small>Click any Agency or Staff card below to dismiss it immediately and reduce Upkeep by $1.</small></p></div>
     <div id="upkeepCards" class="upkeep-cards"></div>
     <div class="upkeep-context"><p class="eyebrow">OPEN ORDERS & MILESTONES</p><div id="upkeepObjectives" class="upkeep-objectives"></div></div>
     <div class="upkeep-actions"><button class="secondary-button" id="upkeepLoanButton">Take $5 loan</button><button class="primary-button" id="payUpkeepButton">Pay upkeep</button></div>

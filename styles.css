@@ -134,11 +134,19 @@ main { overflow: hidden; }
 .reward p { margin: 0; font: 500 8px "DM Mono"; color: var(--muted); letter-spacing: .1em; }
 .reward strong { display: block; margin-top: 5px; font-size: 12px; color: var(--ink); }
 .points { width: 38px; height: 38px; display: grid; place-items: center; background: var(--ink); color: white; border-radius: 50%; font: 700 12px "DM Mono"; }
+.milestone-card.can-complete { border-color: #2f8a58; box-shadow: 0 0 0 4px rgba(47,138,88,.18), 0 16px 30px rgba(31,92,69,.2); }
+.milestone-card.can-complete:disabled { opacity: .9; filter: none; }
+.ready-badge { position: absolute; z-index: 4; top: 51px; right: 13px; padding: 6px 8px; border-radius: 20px; background: #1f7048; color: white; box-shadow: 0 4px 10px rgba(24,55,39,.2); font: 700 8px "DM Mono"; letter-spacing: .08em; }
+.milestone-card.can-complete .points { background: #1f7048; }
 .market-card { display: flex; flex-direction: column; }
-.market-card .card-top { min-height: 154px; color: var(--ink); }
-.market-card .card-kind { margin-bottom: 22px; }
-.market-card .card-top h3 { max-width: 100%; }
-.market-card .card-body { min-height: 120px; flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: stretch; padding-bottom: 76px; }
+.market-card .card-top { min-height: 170px; padding: 0; color: var(--ink); background: color-mix(in srgb, var(--card-color) 24%, #fffdf8); box-shadow: inset 0 5px 0 var(--card-color); }
+.market-card .card-top::before { z-index: 1; opacity: 1; background: linear-gradient(180deg, rgba(255,253,248,.08) 34%, rgba(255,253,248,.96) 100%); }
+.market-card-art { position: absolute; inset: 5px 0 0; width: 100%; height: calc(100% - 5px); object-fit: cover; object-position: center; }
+.market-card .card-kind { position: absolute; top: 14px; left: 14px; z-index: 2; margin: 0; background: rgba(255,253,248,.88); backdrop-filter: blur(3px); }
+.market-card .card-number { z-index: 2; padding: 5px 7px; border: 1px solid rgba(24,37,31,.22); border-radius: 4px; background: rgba(255,253,248,.88); opacity: 1; backdrop-filter: blur(3px); }
+.market-card .card-top h3 { position: absolute; inset: auto 14px 13px; z-index: 2; max-width: 100%; text-shadow: 0 1px 0 rgba(255,255,255,.8); }
+.market-card .card-body { min-height: 170px; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; padding-bottom: 76px; }
+.card-flavour { min-height: 34px; margin: 0 2px; color: #66736c; font: italic 10px/1.45 Georgia, serif; }
 .market-card-footer { position: absolute; inset: auto 0 0; z-index: 2; display: flex; border-top: 1px solid rgba(24,37,31,.14); }
 .market-card-stat { flex: 1 1 0; min-height: 56px; display: flex; justify-content: center; align-items: center; gap: 8px; padding: 11px 9px; border-right: 1px solid rgba(255,253,248,.34); background: var(--stat-color); color: #fffdf8; font: 700 15px "DM Mono"; text-shadow: 0 1px 0 rgba(24,37,31,.12); }
 .market-card-stat:last-child { border-right: 0; }
@@ -268,15 +276,32 @@ main { overflow: hidden; }
 .dialog-actions small { color: var(--muted); }
 .upkeep-dialog { width: min(840px, calc(100% - 30px)); max-height: calc(100vh - 30px); overflow-y: auto; }
 .upkeep-dialog h2, .leaderboard-dialog h2 { margin: 8px 0 10px; font-size: 27px; letter-spacing: -.04em; }
-.upkeep-dialog > p:not(.eyebrow) { margin: 0 0 18px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+.upkeep-dialog > p:not(.eyebrow) { margin: 0 0 14px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+.upkeep-money { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; gap: 8px; margin-bottom: 13px; }
+.upkeep-money > div { padding: 11px 12px; border: 1px solid #d8d4ca; border-radius: 7px; background: #f5f2eb; }
+.upkeep-money > span { align-self: center; color: var(--muted); font-size: 20px; font-weight: 800; }
+.upkeep-money small { display: block; color: var(--muted); font: 700 7px "DM Mono"; letter-spacing: .08em; }
+.upkeep-money strong { display: block; margin-top: 3px; font: 400 25px "Archivo Black", Manrope, sans-serif; }
+.upkeep-money .covered { border-color: #9bc4a9; background: #e9f4ec; color: var(--green); }
+.upkeep-money .shortfall { border-color: #df8650; background: #fff0e5; color: #a74620; }
+.upkeep-money > p { grid-column: 1 / -1; display: flex; align-items: center; gap: 9px; margin: 0; padding: 9px 11px; border-radius: 6px; background: #e9f4ec; color: var(--green); }
+.upkeep-money > p b { flex: 0 0 auto; font: 800 8px "DM Mono"; letter-spacing: .08em; }
+.upkeep-money > p small { color: inherit; font: 600 9px Manrope; letter-spacing: 0; }
+.loan-needed .upkeep-money > p { background: #fff0e5; color: #a74620; }
+.dismiss-callout { display: flex; align-items: center; gap: 12px; margin: 14px 0 10px; padding: 12px 14px; border: 2px solid #d97845; border-radius: 8px; background: #fff7ef; color: #833b20; }
+.dismiss-callout > span { font-size: 27px; }
+.dismiss-callout p { margin: 0; }
+.dismiss-callout b { display: block; font: 800 10px "DM Mono"; letter-spacing: .08em; }
+.dismiss-callout small { display: block; margin-top: 4px; color: #714d3f; font-size: 10px; }
 .upkeep-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; max-height: 290px; overflow: auto; }
 .upkeep-cards button { position: relative; display: grid; gap: 3px; overflow: hidden; padding: 13px 11px 10px; border: 1px solid var(--line); border-radius: 7px; background: white; cursor: pointer; text-align: left; }
 .upkeep-cards button::before { content: ""; position: absolute; inset: 0 0 auto; height: 5px; background: var(--card-color); }
 .upkeep-cards button span, .upkeep-cards button small { color: var(--muted); font: 600 7px "DM Mono"; text-transform: uppercase; }
 .upkeep-cards button b { font-size: 11px; }
 .upkeep-cards button .upkeep-skills { color: var(--ink); line-height: 1.4; }
-.upkeep-cards button em { color: #9a542f; font: 700 7px "DM Mono"; font-style: normal; text-transform: uppercase; }
-.upkeep-cards button:hover { border-color: var(--orange); background: #fff7ef; }
+.upkeep-cards button em { justify-self: start; margin-top: 4px; padding: 5px 7px; border-radius: 4px; background: #fff0e5; color: #9a542f; font: 800 8px "DM Mono"; font-style: normal; text-transform: uppercase; }
+.upkeep-cards button:hover { border-color: var(--orange); background: #fff7ef; box-shadow: 0 0 0 2px rgba(217,120,69,.16); transform: translateY(-2px); }
+.upkeep-cards button:hover em { background: #d97845; color: white; }
 .upkeep-context { margin-top: 20px; padding-top: 17px; border-top: 1px solid var(--line); }
 .upkeep-context > .eyebrow { margin-bottom: 8px; }
 .upkeep-objectives { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
@@ -288,8 +313,11 @@ main { overflow: hidden; }
 .upkeep-objectives article > div span { display: flex; align-items: center; gap: 2px; font: 700 8px "DM Mono"; }
 .upkeep-objectives .skill-icon { width: 16px; height: 16px; padding: 3px; border-radius: 50%; background: var(--stat-color); color: white; }
 .upkeep-objectives article > strong { grid-column: 1 / -1; color: var(--green); font: 700 7px "DM Mono"; }
+.upkeep-objectives article.can-complete { border-color: #5d9f75; background: #e9f4ec; box-shadow: inset 4px 0 0 #2f8a58; }
+.upkeep-objectives article.can-complete > strong { color: #1f7048; }
 .upkeep-actions { display: grid; grid-template-columns: 1fr 1.3fr; gap: 9px; margin-top: 18px; }
 .upkeep-actions .secondary-button { margin: 0; }
+.loan-needed #upkeepLoanButton { border-color: #b9562b; background: #d97845; color: white; box-shadow: 0 0 0 4px rgba(217,120,69,.16); }
 .leaderboard-row { display: grid; grid-template-columns: 32px 1fr auto; align-items: center; gap: 10px; padding: 12px 0; border-top: 1px solid var(--line); }
 .leaderboard-row > b { width: 27px; height: 27px; display: grid; place-items: center; border-radius: 50%; background: var(--lime); font: 700 9px "DM Mono"; }
 .leaderboard-row p { margin: 0; }
@@ -369,6 +397,10 @@ body.action-in-progress .game-card:not(.card-taking) { pointer-events: none; }
   .mode-tabs button { padding-inline: 4px; font-size: 9px; }
   .monkey-action { top: 76px; left: 15px; right: 15px; max-width: none; }
   .online-actions { grid-template-columns: 1fr; }
+  .upkeep-money { grid-template-columns: 1fr 1fr; }
+  .upkeep-money > span { display: none; }
+  .upkeep-money > div:last-of-type { grid-column: 1 / -1; }
+  .upkeep-money > p { align-items: flex-start; flex-direction: column; }
   .discard-grid, .upkeep-cards, .upkeep-objectives { grid-template-columns: 1fr; }
   .requirement-line { grid-template-columns: 1fr 45px 45px; }
   .outsource-controls { grid-column: 1 / -1; justify-content: flex-start; }

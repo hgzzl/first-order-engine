@@ -6,6 +6,41 @@ const STAT_META = {
   operations: { label: "Operations", color: "#4f9a70" },
 };
 
+const TALENT_ART = {
+  brand: "assets/talent/brand.webp",
+  fulfillment: "assets/talent/fulfillment.webp",
+  production: "assets/talent/production.webp",
+  staffing: "assets/talent/staffing.webp",
+  operations: "assets/talent/operations.webp",
+};
+
+const CARD_FLAVOUR = {
+  "Launch Lab": "Your launch plan has a launch plan.",
+  "Northstar Creative": "The brand deck finally stopped saying ‘TBD.’",
+  "Conversion Studio": "The buy button is now doing its job.",
+  "Supply Chain Partners": "They hit MOQ. They return emails. They exist.",
+  "Growth Collective": "The group chat has become a funnel.",
+  "Product Design House": "Prototype seventeen is the one. Probably.",
+  "Operations Consultancy": "They made a swimlane. Things moved.",
+  "Logistics Network": "Three warehouses. Zero garage boxes.",
+  "Brand Director": "Our social account no longer looks like it was made in 2011.",
+  "Fulfillment Lead": "Shipping zones are no longer a mystery. We have ascended.",
+  "Production Manager": "Speaks fluent MOQ at 2 a.m.",
+  "People Lead": "The onboarding doc has an onboarding doc.",
+  "Operations Manager": "Stuff just works now. We don't ask questions.",
+  "Customer Success Rep": "We finally stopped letting emails sit for six days.",
+  "Inventory Planner": "We know what's in stock. No more guessing in Slack.",
+  "Warehouse Crew": "They own matching high-vis vests. This is happening.",
+  "Shopify Flow": "If inventory is low, email the supplier. Why didn't we do this sooner?",
+  "Shopify Sidekick": "A second brain that never asks for equity.",
+  "Shopify Markets": "Global selling, local-feeling checkout.",
+  "Shopify Shipping": "Labels printed. Tears prevented.",
+  "Shopify Bundles": "Two slow movers become one bestseller.",
+  "Shopify Collabs": "Creator codes that finance themselves.",
+  "Shopify POS": "Same inventory. No spreadsheet reconciliation at 11 p.m.",
+  "Shopify Collective": "More products. No new warehouse.",
+};
+
 const talentDeck = [
   ["Launch Lab", "Agency", "agency", { brand: 2, production: 1 }, "#f0aac2"],
   ["Northstar Creative", "Agency", "agency", { brand: 2, operations: 1 }, "#efb6ca"],
@@ -78,6 +113,10 @@ const shuffle = (items) => [...items].sort(() => Math.random() - 0.5);
 const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", "\"": "&quot;" })[character]);
 const skillIcon = (stat, className = "") => `<svg class="skill-icon ${className}" aria-hidden="true"><use href="#icon-${stat}"></use></svg>`;
 const primaryStat = (stats) => Object.entries(stats).sort((a, b) => b[1] - a[1])[0]?.[0] || "operations";
+const talentArtwork = (stats) => {
+  const stat = primaryStat(stats);
+  return `<img class="market-card-art" src="${TALENT_ART[stat]}" alt="" aria-hidden="true" decoding="async" />`;
+};
 const cardArtwork = (stats) => {
   const primary = primaryStat(stats);
   const supporting = Object.keys(stats).filter(stat => stat !== primary);
@@ -168,22 +207,24 @@ function renderPlayers() {
 function renderMarket() {
   $("#marketRow").innerHTML = state.market.map((card, index) => `
     <button class="game-card market-card" data-market="${index}" aria-label="Draft ${card.name}" ${!isMyTurn() || state.pendingDiscards.length ? "disabled" : ""}>
-      <div class="card-top" style="background:${card.color}">
-        <p class="card-kind">${card.kind}</p><span class="card-number">0${index + 1}</span><h3>${card.name}</h3>
+      <div class="card-top" style="--card-color:${card.color}">
+        ${talentArtwork(card.stats)}<p class="card-kind">${card.kind}</p><span class="card-number">0${index + 1}</span><h3>${card.name}</h3>
       </div>
-      <div class="card-body"><div class="card-economy ${card.type}">${card.type === "tool" ? "Permanent +1 · no upkeep" : "$1 Upkeep each turn"}</div></div>
+      <div class="card-body"><p class="card-flavour">“${escapeHtml(CARD_FLAVOUR[card.name] || "Build it. Ship it. Learn fast.")}”</p><div class="card-economy ${card.type}">${card.type === "tool" ? "Permanent +1 · no upkeep" : "$1 Upkeep each turn"}</div></div>
       ${marketCardFooter(card.stats)}
     </button>`).join("");
   document.querySelectorAll("[data-market]").forEach(button => button.addEventListener("click", () => requestDraft(Number(button.dataset.market))));
 }
 
 function renderMilestones() {
+  const playerSkills = totalSkills(currentPlayer());
   $("#milestoneRow").innerHTML = state.milestones.map((card, index) => {
     const requirements = effectiveRequirements(card);
     const requirementTotal = Object.values(requirements).reduce((sum, value) => sum + value, 0);
+    const ready = canComplete(card, playerSkills);
     const reward = card.reward.cash ? `$${card.reward.cash} cash` : `+1 permanent ${STAT_META[card.reward.permanent].label}`;
-    return `<button class="game-card milestone-card" data-milestone="${index}" aria-label="Open ${card.kind} ${card.name}, ${requirementTotal} total skill" ${!isMyTurn() || state.pendingDiscards.length ? "disabled" : ""}>
-      <div class="card-top" style="background:${card.color}"><p class="card-kind">${card.kind} · ${requirementTotal} skill</p><span class="card-number">B${String(index + 1).padStart(2, "0")}</span><h3>${card.name}</h3>${cardArtwork(requirements)}</div>
+    return `<button class="game-card milestone-card ${ready ? "can-complete" : ""}" data-milestone="${index}" aria-label="Open ${card.kind} ${card.name}, ${requirementTotal} total skill${ready ? ", ready to complete" : ""}" ${!isMyTurn() || state.pendingDiscards.length ? "disabled" : ""}>
+      <div class="card-top" style="background:${card.color}"><p class="card-kind">${card.kind} · ${requirementTotal} skill</p>${ready ? `<span class="ready-badge">✓ READY</span>` : ""}<span class="card-number">B${String(index + 1).padStart(2, "0")}</span><h3>${card.name}</h3>${cardArtwork(requirements)}</div>
       <div class="card-body">${statGrid(requirements, false, true)}
       <div class="reward"><p>REWARD<strong>${reward}</strong></p><span class="points">+${card.points}</span></div></div>
     </button>`;
@@ -398,7 +439,10 @@ function repayLoan() {
   player.cash -= 8;
   player.debt -= 8;
   const triggeredEndgame = triggerEndgameIfNeeded(player);
-  advanceTurn(`${player.name} repaid $8 of loan debt`, triggeredEndgame);
+  render();
+  commitNetworkState();
+  notify(`${player.name} repaid $8 of loan debt${triggeredEndgame ? " · final stretch begins" : " · turn continues"}`);
+  if (triggeredEndgame && state.endgame?.turnsRemaining === 0) setTimeout(showFinalResults, 450);
 }
 
 function upkeepCost(player = currentPlayer()) {
@@ -414,8 +458,13 @@ function maybeShowUpkeep() {
   const player = currentPlayer();
   if (network.mode === "online" && player.clientId !== network.clientId) return;
   const cost = upkeepCost(player);
+  const shortfall = Math.max(0, cost - player.cash);
+  const needsLoan = shortfall > 0;
   $("#upkeepTitle").textContent = `${player.name}, pay your team`;
-  $("#upkeepSummary").textContent = `Agency and Staff cards cost $1 Upkeep each. Your Upkeep is $${cost}; you have $${player.cash}. Discard any cards you do not want to keep.`;
+  $("#upkeepSummary").textContent = "Agency and Staff cards each cost $1 Upkeep. Review the open Orders and Milestones before deciding who stays.";
+  $("#upkeepDialog").classList.toggle("loan-needed", needsLoan);
+  $("#upkeepMoney").innerHTML = `<div><small>CASH AVAILABLE</small><strong>$${player.cash}</strong></div><span>−</span><div><small>UPKEEP DUE</small><strong>$${cost}</strong></div><span>=</span><div class="${needsLoan ? "shortfall" : "covered"}"><small>${needsLoan ? "SHORTFALL" : "CASH AFTER PAYMENT"}</small><strong>${needsLoan ? "−" : ""}$${Math.abs(player.cash - cost)}</strong></div><p>${needsLoan ? `<b>LOAN NEEDED</b><small>You are $${shortfall} short. Take a $5 loan or click team cards below to dismiss them.</small>` : `<b>UPKEEP COVERED</b><small>You can pay now—or dismiss cards you no longer need.</small>`}</p>`;
+  $("#upkeepLoanButton").textContent = needsLoan ? `Take $5 loan · cover $${shortfall} shortfall` : "Take optional $5 loan";
   $("#upkeepCards").innerHTML = player.hand.map((card, index) => {
     const skills = Object.entries(card.stats).map(([stat, value]) => `${STAT_META[stat].label} ${value}`).join(" · ");
     return `<button data-upkeep-discard="${index}" style="--card-color:${card.color}"><span>${card.kind}</span><b>${escapeHtml(card.name)}</b><small class="upkeep-skills">${skills}</small><em>Discard · save $1</em></button>`;
@@ -424,7 +473,8 @@ function maybeShowUpkeep() {
     const requirements = effectiveRequirements(card);
     const total = Object.values(requirements).reduce((sum, value) => sum + value, 0);
     const skills = Object.entries(requirements).map(([stat, value]) => `<span style="--stat-color:${STAT_META[stat].color}">${skillIcon(stat)}${value}</span>`).join("");
-    return `<article><p><small>${card.kind} · ${total} skill</small><b>${escapeHtml(card.name)}</b></p><div>${skills}</div><strong>$${card.reward.cash} · +${card.points} rep</strong></article>`;
+    const ready = canComplete(card, totalSkills(player));
+    return `<article class="${ready ? "can-complete" : ""}"><p><small>${card.kind} · ${total} skill</small><b>${escapeHtml(card.name)}</b></p><div>${skills}</div><strong>${ready ? "✓ READY · " : ""}$${card.reward.cash} · +${card.points} rep</strong></article>`;
   }).join("");
   $("#payUpkeepButton").textContent = `Pay $${cost} upkeep`;
   $("#payUpkeepButton").disabled = player.cash < cost;
