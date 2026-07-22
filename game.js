@@ -85,21 +85,22 @@ const talentDeck = [
 ].map(([name, kind, type, stats, color], id) => ({ id: `t${id}`, name, kind, type, stats, color }));
 
 const milestoneDeck = [
-  ["First profitable order", "Order", { brand: 2, production: 1 }, { cash: 2 }, 1, "#dbeaa2"],
-  ["Weekend market sellout", "Order", { brand: 1, fulfillment: 2 }, { cash: 2 }, 1, "#f2c0a7"],
-  ["Reliable supplier network", "Milestone", { production: 2, operations: 2 }, { cash: 3 }, 2, "#efd48e"],
-  ["A team that scales", "Milestone", { staffing: 2, operations: 2 }, { cash: 3 }, 2, "#cdbbe8"],
-  ["Retailer pilot", "Order", { production: 2, fulfillment: 3 }, { cash: 4 }, 2, "#afd0ed"],
-  ["Repeat customer engine", "Milestone", { brand: 3, fulfillment: 2 }, { cash: 4 }, 2, "#eeb6ca"],
-  ["Two-day dispatch", "Milestone", { fulfillment: 3, operations: 3 }, { cash: 6 }, 3, "#b6d2ef"],
-  ["Operational excellence", "Milestone", { operations: 3, staffing: 3 }, { cash: 6 }, 3, "#add8bf"],
-  ["Holiday rush", "Order", { production: 2, fulfillment: 2, staffing: 2 }, { cash: 6 }, 3, "#f0c891"],
-  ["National press feature", "Order", { brand: 4, production: 3 }, { cash: 7 }, 3, "#f0b2c1"],
-  ["10,000th order", "Milestone", { brand: 2, fulfillment: 3, operations: 2 }, { cash: 7 }, 4, "#cae49c"],
-  ["Flagship collaboration", "Order", { brand: 3, production: 2, staffing: 2 }, { cash: 7 }, 4, "#efb99f"],
-  ["International launch", "Milestone", { brand: 3, fulfillment: 2, operations: 3 }, { cash: 9 }, 4, "#b5d7cf"],
-  ["BFCM record", "Order", { production: 3, fulfillment: 3, staffing: 2 }, { cash: 10 }, 5, "#e7c37b"],
-  ["Category leader", "Milestone", { brand: 3, production: 2, operations: 3 }, { cash: 10 }, 5, "#d4b1df"],
+  // Objectives deliberately reward different engine shapes: specialists, pairs, and balanced teams.
+  ["First profitable order", "Order", { brand: 3 }, { cash: 2 }, 1, "#dbeaa2"],
+  ["Weekend market sellout", "Order", { fulfillment: 3 }, { cash: 3 }, 1, "#f2c0a7"],
+  ["Reliable supplier network", "Milestone", { production: 4 }, { cash: 3 }, 2, "#efd48e"],
+  ["A team that scales", "Milestone", { staffing: 4 }, { cash: 2 }, 3, "#cdbbe8"],
+  ["Retailer pilot", "Order", { fulfillment: 4, brand: 1 }, { cash: 5 }, 2, "#afd0ed"],
+  ["Repeat customer engine", "Milestone", { brand: 4, fulfillment: 1 }, { cash: 3 }, 3, "#eeb6ca"],
+  ["Two-day dispatch", "Milestone", { fulfillment: 5, operations: 1 }, { cash: 7 }, 2, "#b6d2ef"],
+  ["Operational excellence", "Milestone", { operations: 5, staffing: 1 }, { cash: 4 }, 4, "#add8bf"],
+  ["Holiday rush", "Order", { production: 4, staffing: 2 }, { cash: 8 }, 2, "#f0c891"],
+  ["National press feature", "Order", { brand: 6, operations: 1 }, { cash: 5 }, 5, "#f0b2c1"],
+  ["10,000th order", "Milestone", { fulfillment: 5, operations: 2 }, { cash: 9 }, 3, "#cae49c"],
+  ["Flagship collaboration", "Order", { brand: 4, production: 3 }, { cash: 6 }, 4, "#efb99f"],
+  ["International launch", "Milestone", { fulfillment: 4, brand: 2, operations: 2 }, { cash: 10 }, 4, "#b5d7cf"],
+  ["BFCM record", "Order", { production: 4, fulfillment: 4 }, { cash: 10 }, 4, "#e7c37b"],
+  ["Category leader", "Milestone", { operations: 5, brand: 3 }, { cash: 7 }, 6, "#d4b1df"],
 ].map(([name, kind, requirements, reward, points, color], id) => ({ id: `m${id}`, name, kind, requirements, reward, points, color }));
 
 const WIN_SCORE = 20;
