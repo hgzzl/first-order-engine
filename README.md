@@ -1,6 +1,6 @@
-# First Order: Engine
+# Rush to IPO
 
-An alternative 1–4 player edition of First Order focused on building and funding a persistent operating engine.
+A 1–4 player entrepreneur card game focused on building and funding a persistent operating engine.
 
 ## Play locally
 

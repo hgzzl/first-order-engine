@@ -70,8 +70,8 @@ const CHAOS_CARDS = [
 const state = { players: [], currentPlayerIndex: 0, turn: 1, market: [], milestones: [], talentDraw: [], milestoneDraw: [], activeObjective: null, selected: new Set(), sound: true, chaosEnabled: true, activeChaos: null, pendingDiscards: [], endgame: null, upkeepPending: false, leaderboardSaved: false };
 let actionAnimating = false;
 let monkeyAnimationPending = false;
-const network = { mode: "local", clientId: sessionStorage.getItem("first-order-client") || crypto.randomUUID(), gameId: null, gameCode: null, games: null, unsubscribe: null, hostId: null };
-sessionStorage.setItem("first-order-client", network.clientId);
+const network = { mode: "local", clientId: sessionStorage.getItem("rush-to-ipo-client") || crypto.randomUUID(), gameId: null, gameCode: null, games: null, unsubscribe: null, hostId: null };
+sessionStorage.setItem("rush-to-ipo-client", network.clientId);
 const $ = (selector) => document.querySelector(selector);
 const STAT_ORDER = Object.keys(STAT_META);
 const shuffle = (items) => [...items].sort(() => Math.random() - 0.5);
