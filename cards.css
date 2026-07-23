@@ -1,0 +1,81 @@
+.cards-page { min-width: 320px; padding: 0; background: #e9e6dd; }
+.cards-page .game-card { cursor: default; animation: none; transition: none; }
+.cards-page .game-card:hover { transform: none; box-shadow: 0 10px 22px rgba(28,42,34,.1), 0 2px 4px rgba(28,42,34,.1), inset 0 0 0 3px rgba(255,255,255,.55); }
+.catalogue-toolbar { min-height: 190px; display: grid; grid-template-columns: minmax(190px, .7fr) minmax(340px, 1.2fr) minmax(200px, .7fr); align-items: center; gap: 36px; padding: 32px clamp(24px, 5vw, 72px); border-bottom: 1px solid #0c2c21; background: var(--green-dark); color: white; }
+.catalogue-toolbar .wordmark { align-self: start; color: white; }
+.catalogue-toolbar .wordmark small, .catalogue-toolbar .eyebrow { color: #9fc5b4; }
+.catalogue-intro h1 { margin: 0; font-family: "Archivo Black", Manrope, sans-serif; font-size: clamp(30px, 4vw, 52px); font-weight: 400; letter-spacing: -.055em; line-height: .98; }
+.catalogue-intro > p:last-child { margin: 12px 0 0; color: #c9d8d1; font-size: 13px; }
+.catalogue-actions { align-self: end; display: flex; justify-content: flex-end; align-items: center; gap: 18px; }
+.catalogue-actions a { color: #c9d8d1; font-size: 12px; font-weight: 700; text-decoration: none; }
+.catalogue-actions a:hover { color: white; text-decoration: underline; }
+.print-button { min-height: 43px; padding: 0 20px; border: 1px solid var(--lime); border-radius: 7px; background: var(--lime); color: var(--ink); cursor: pointer; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; }
+.print-button:hover { background: #d6f77a; }
+.print-button:focus-visible, .catalogue-actions a:focus-visible { outline: 3px solid white; outline-offset: 3px; }
+.catalogue-main { padding: 18px clamp(24px, 5vw, 72px) 70px; overflow: visible; }
+.catalogue-section { padding: 42px 0 52px; border-bottom: 1px solid #c8c4b8; }
+.catalogue-section:last-child { border-bottom: 0; }
+.catalogue-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 26px; }
+.catalogue-heading h2 { margin: 0; font-size: 28px; letter-spacing: -.04em; }
+.catalogue-heading > p { max-width: 420px; margin: 0; color: var(--muted); font-size: 12px; text-align: right; }
+.catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, 240px); gap: 28px 22px; }
+.print-card { width: 240px; height: 336px; }
+.print-card.market-card .card-top { min-height: 148px; flex: 0 0 148px; }
+.print-card.market-card .market-card-art { inset: 5px 0 0; height: 143px; }
+.print-card.market-card .card-top h3 { inset: 39px 52px auto 14px; font-size: 20px; }
+.print-card.market-card .card-body { min-height: 0; flex: 1 1 auto; padding: 14px 16px 58px; }
+.print-card .card-flavour { min-height: 0; padding: 9px 10px; font-size: 11px; line-height: 1.35; }
+.print-card .market-card-stat { min-height: 50px; padding: 8px 7px; }
+.catalogue-card-code { position: absolute; top: 13px; left: 14px; z-index: 3; padding: 3px 5px; border-radius: 3px; background: rgba(255,253,248,.88); color: var(--muted); font: 600 7px "DM Mono"; letter-spacing: .08em; }
+.print-card.milestone-card .card-top { min-height: 0; height: 100%; flex: 1 1 auto; padding: 16px; background: var(--objective-color); border: 0; }
+.print-card.milestone-card .card-top::before { z-index: 1; opacity: 1; background: linear-gradient(180deg, rgba(255,253,248,.3), transparent 45%, rgba(255,253,248,.92) 100%); }
+.print-card.milestone-card .objective-requirements, .print-card.milestone-card .objective-rewards { top: 16px; gap: 5px; }
+.print-card.milestone-card .objective-requirements { left: 14px; }
+.print-card.milestone-card .objective-rewards { right: 14px; }
+.print-card.milestone-card .objective-requirement, .print-card.milestone-card .objective-reward { font-size: 9px; }
+.print-card.milestone-card .objective-requirement .skill-icon, .print-card.milestone-card .objective-reward .reward-icon { width: 22px; height: 22px; }
+.print-card.milestone-card .card-top h3 { position: absolute; inset: auto 11px 10px; z-index: 2; max-width: none; padding: 8px 9px; border: 1px solid rgba(24,37,31,.16); border-radius: 6px; background: rgba(255,253,248,.88); font-size: 18px; }
+.special-card { display: flex; flex-direction: column; background: #fffdf8; }
+.special-card-art { position: relative; height: 155px; flex: 0 0 155px; overflow: hidden; border-bottom: 2px solid rgba(24,37,31,.18); background: #dce8df; }
+.special-card-art img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.special-card-label { position: absolute; left: 11px; top: 11px; padding: 5px 7px; border: 1px solid rgba(24,37,31,.22); border-radius: 4px; background: rgba(255,253,248,.9); font: 700 7px "DM Mono"; letter-spacing: .09em; text-transform: uppercase; }
+.special-card-body { flex: 1; padding: 16px 17px; }
+.special-card-body h3 { margin: 0 0 8px; font-size: 22px; letter-spacing: -.045em; line-height: 1.02; }
+.special-card-body > strong { display: block; margin-bottom: 7px; color: var(--green); font-size: 11px; line-height: 1.25; }
+.special-card-body > p:last-child { margin: 0; color: #536159; font-size: 10px; line-height: 1.4; }
+.chaos-print-card .special-card-art { background: #f4b082; }
+.founder-print-card { border-color: var(--stat-color); }
+.founder-print-card .special-card-art { background: color-mix(in srgb, var(--stat-color) 30%, #fffdf8); }
+.founder-skill { display: flex; align-items: center; gap: 9px; margin: 10px 0 9px; padding: 8px; border-radius: 7px; background: color-mix(in srgb, var(--stat-color) 18%, #fffdf8); }
+.founder-skill .skill-icon { width: 30px; height: 30px; padding: 6px; border-radius: 50%; background: var(--stat-color); color: white; }
+.founder-skill small { display: block; color: var(--muted); font: 600 6px "DM Mono"; letter-spacing: .07em; }
+.founder-skill strong { display: block; margin-top: 2px; font-size: 11px; }
+.print-deck { display: none; }
+.catalogue-footer { padding: 28px; border-top: 1px solid #c8c4b8; color: var(--muted); font: 600 8px "DM Mono"; letter-spacing: .12em; text-align: center; }
+
+@media (max-width: 860px) {
+  .catalogue-toolbar { grid-template-columns: 1fr; gap: 24px; }
+  .catalogue-toolbar .wordmark, .catalogue-actions { align-self: auto; }
+  .catalogue-actions { justify-content: flex-start; }
+  .catalogue-heading { align-items: start; flex-direction: column; }
+  .catalogue-heading > p { text-align: left; }
+}
+
+@media (max-width: 560px) {
+  .catalogue-toolbar, .catalogue-main { padding-left: 20px; padding-right: 20px; }
+  .catalogue-grid { justify-content: center; }
+}
+
+@page { size: Letter portrait; margin: .25in; }
+
+@media print {
+  html, .cards-page { width: auto; min-width: 0; margin: 0; padding: 0; background: white; }
+  .cards-page { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .catalogue-toolbar, .screen-deck, .catalogue-footer { display: none !important; }
+  .catalogue-main { margin: 0; padding: 0; }
+  .print-deck { display: block; }
+  .print-sheet { width: 7.5in; height: 10.5in; display: grid; grid-template-columns: repeat(3, 2.5in); grid-template-rows: repeat(3, 3.5in); break-after: page; page-break-after: always; }
+  .print-sheet:last-child { break-after: auto; page-break-after: auto; }
+  .print-card { width: 2.5in; height: 3.5in; break-inside: avoid; page-break-inside: avoid; border: 1px solid #58605b; border-radius: 0; box-shadow: none; }
+  .print-card::after { inset: 5px; border-radius: 6px; }
+}

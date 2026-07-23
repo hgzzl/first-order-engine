@@ -43,7 +43,7 @@ The complete deck list is available as [`card-inventory.csv`](card-inventory.csv
 
 A sample illustrated card is available as [SVG](art/launch-lab-card.svg) and [PNG](art/launch-lab-card.png).
 
-Talent, Founder, and Chaos Monkey illustrations use optimized derivatives from the shared [Race to IPO image folder](https://drive.google.com/drive/folders/1nz-ynLoEU8maxp_2X2vZnEvyzs4C3yT4).
+Card illustrations use optimized derivatives from the shared [Race to IPO](https://drive.google.com/drive/folders/1nz-ynLoEU8maxp_2X2vZnEvyzs4C3yT4), [Thursday Firsts](https://drive.google.com/drive/folders/17gIvk74N8Kg35J_Mr-ghAVFEkV_znCmC), and [Chaos Monkey](https://drive.google.com/drive/folders/1aVp5aN1SEjSvxewvAMTkNe2qQILkQA6D) image folders.
 
 ## Online play
 

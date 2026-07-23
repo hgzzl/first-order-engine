@@ -1,124 +1,20 @@
-const STAT_META = {
-  brand: { label: "Brand", color: "#dc6f8e" },
-  fulfillment: { label: "Fulfillment", color: "#5d84e6" },
-  production: { label: "Production", color: "#e7b84a" },
-  staffing: { label: "Staffing", color: "#8a72ce" },
-  operations: { label: "Operations", color: "#4f9a70" },
-};
-
-const TALENT_ART = {
-  brand: "assets/talent/brand.webp",
-  fulfillment: "assets/talent/fulfillment.webp",
-  production: "assets/talent/production.webp",
-  staffing: "assets/talent/staffing.webp",
-  operations: "assets/talent/operations.webp",
-};
-
-const FOUNDER_ART = {
-  brand: "assets/founders/brand.webp",
-  fulfillment: "assets/founders/fulfillment.webp",
-  production: "assets/founders/production.webp",
-  staffing: "assets/founders/staffing.webp",
-  operations: "assets/founders/operations.webp",
-};
-
-const CHAOS_ART = {
-  c1: "assets/chaos/brand-tax.webp",
-  c2: "assets/chaos/ops-breakthrough.webp",
-  c3: "assets/chaos/talent-shuffle.webp",
-  c4: "assets/chaos/new-priorities.webp",
-  c5: "assets/chaos/hiring-rebate.webp",
-};
-
-const CARD_FLAVOUR = {
-  "Launch Lab": "Your launch plan has a launch plan.",
-  "Northstar Creative": "The brand deck finally stopped saying ‘TBD.’",
-  "Conversion Studio": "The buy button is now doing its job.",
-  "Supply Chain Partners": "They hit MOQ. They return emails. They exist.",
-  "Growth Collective": "The group chat has become a funnel.",
-  "Product Design House": "Prototype seventeen is the one. Probably.",
-  "Operations Consultancy": "They made a swimlane. Things moved.",
-  "Logistics Network": "Three warehouses. Zero garage boxes.",
-  "Brand Director": "Our social account no longer looks like it was made in 2011.",
-  "Fulfillment Lead": "Shipping zones are no longer a mystery. We have ascended.",
-  "Production Manager": "Speaks fluent MOQ at 2 a.m.",
-  "People Lead": "The onboarding doc has an onboarding doc.",
-  "Operations Manager": "Stuff just works now. We don't ask questions.",
-  "Customer Success Rep": "We finally stopped letting emails sit for six days.",
-  "Inventory Planner": "We know what's in stock. No more guessing in Slack.",
-  "Warehouse Crew": "They own matching high-vis vests. This is happening.",
-  "Shopify Flow": "If inventory is low, email the supplier. Why didn't we do this sooner?",
-  "Shopify Sidekick": "A second brain that never asks for equity.",
-  "Shopify Markets": "Global selling, local-feeling checkout.",
-  "Shopify Shipping": "Labels printed. Tears prevented.",
-  "Shopify Bundles": "Two slow movers become one bestseller.",
-  "Shopify Collabs": "Creator codes that finance themselves.",
-  "Shopify POS": "Same inventory. No spreadsheet reconciliation at 11 p.m.",
-  "Shopify Collective": "More products. No new warehouse.",
-};
-
-const talentDeck = [
-  ["Launch Lab", "Agency", "agency", { brand: 2, production: 1 }, "#f0aac2"],
-  ["Northstar Creative", "Agency", "agency", { brand: 2, operations: 1 }, "#efb6ca"],
-  ["Conversion Studio", "Agency", "agency", { brand: 1, fulfillment: 1, operations: 1 }, "#e6a5bc"],
-  ["Supply Chain Partners", "Agency", "agency", { production: 2, fulfillment: 1 }, "#eac578"],
-  ["Growth Collective", "Agency", "agency", { brand: 2, staffing: 1 }, "#e9afcc"],
-  ["Product Design House", "Agency", "agency", { production: 2, brand: 1 }, "#efbd8f"],
-  ["Operations Consultancy", "Agency", "agency", { operations: 2, staffing: 1 }, "#9fcbb0"],
-  ["Logistics Network", "Agency", "agency", { fulfillment: 2, operations: 1 }, "#a7c7ea"],
-  ["Brand Director", "Staff", "staffing", { brand: 3 }, "#dc83a4"],
-  ["Fulfillment Lead", "Staff", "staffing", { fulfillment: 3 }, "#729be6"],
-  ["Production Manager", "Staff", "staffing", { production: 3 }, "#e2b44e"],
-  ["People Lead", "Staff", "staffing", { staffing: 3 }, "#9679cf"],
-  ["Operations Manager", "Staff", "staffing", { operations: 3 }, "#63a57c"],
-  ["Customer Success Rep", "Staff", "staffing", { brand: 1, fulfillment: 2 }, "#d99db6"],
-  ["Inventory Planner", "Staff", "staffing", { production: 1, operations: 2 }, "#bfca8d"],
-  ["Warehouse Crew", "Staff", "staffing", { fulfillment: 2, staffing: 1 }, "#9abbe3"],
-  ["Shopify Flow", "Shopify Tool", "tool", { operations: 1 }, "#95d5ae"],
-  ["Shopify Sidekick", "Shopify Tool", "tool", { staffing: 1 }, "#b8a2e4"],
-  ["Shopify Markets", "Shopify Tool", "tool", { brand: 1 }, "#e8a6be"],
-  ["Shopify Shipping", "Shopify Tool", "tool", { fulfillment: 1 }, "#9fbfea"],
-  ["Shopify Bundles", "Shopify Tool", "tool", { production: 1 }, "#e8c66e"],
-  ["Shopify Collabs", "Shopify Tool", "tool", { brand: 1 }, "#e7abc3"],
-  ["Shopify POS", "Shopify Tool", "tool", { operations: 1 }, "#8cc9a4"],
-  ["Shopify Collective", "Shopify Tool", "tool", { production: 1 }, "#e4c276"],
-].map(([name, kind, type, stats, color], id) => ({ id: `t${id}`, name, kind, type, stats, color }));
-
-const milestoneDeck = [
-  // Objectives deliberately reward different engine shapes: specialists, pairs, and balanced teams.
-  ["First profitable order", "Order", { brand: 3 }, { cash: 3 }, 1, "#dbeaa2"],
-  ["Weekend market sellout", "Order", { fulfillment: 3 }, { cash: 4 }, 0, "#f2c0a7"],
-  ["Reliable supplier network", "Milestone", { production: 4 }, { cash: 4 }, 2, "#efd48e"],
-  ["A team that scales", "Milestone", { staffing: 4 }, { cash: 0 }, 3, "#cdbbe8"],
-  ["Retailer pilot", "Order", { fulfillment: 4, brand: 1 }, { cash: 6 }, 2, "#afd0ed"],
-  ["Repeat customer engine", "Milestone", { brand: 4, fulfillment: 1 }, { cash: 3 }, 3, "#eeb6ca"],
-  ["Two-day dispatch", "Milestone", { fulfillment: 5, operations: 1 }, { cash: 7 }, 0, "#b6d2ef"],
-  ["Operational excellence", "Milestone", { operations: 5, staffing: 1 }, { cash: 0 }, 4, "#add8bf"],
-  ["Holiday rush", "Order", { production: 4, staffing: 2 }, { cash: 8 }, 0, "#f0c891"],
-  ["National press feature", "Order", { brand: 6, operations: 1 }, { cash: 0 }, 5, "#f0b2c1"],
-  ["10,000th order", "Milestone", { fulfillment: 5, operations: 2 }, { cash: 9 }, 0, "#cae49c"],
-  ["Flagship collaboration", "Order", { brand: 4, production: 3 }, { cash: 4 }, 4, "#efb99f"],
-  ["International launch", "Milestone", { fulfillment: 4, brand: 2, operations: 2 }, { cash: 9 }, 4, "#b5d7cf"],
-  ["BFCM record", "Order", { production: 4, fulfillment: 4 }, { cash: 10 }, 4, "#e7c37b"],
-  ["Category leader", "Milestone", { operations: 5, brand: 3 }, { cash: 0 }, 6, "#d4b1df"],
-].map(([name, kind, requirements, reward, points, color], id) => ({ id: `m${id}`, name, kind, requirements, reward, points, color }));
+import {
+  CARD_FLAVOUR,
+  CHAOS_ART,
+  CHAOS_CARDS,
+  ECONOMY_ART,
+  FOUNDER_ARCHETYPES,
+  FOUNDER_ART,
+  MILESTONE_ART,
+  STAT_META,
+  TALENT_ART,
+  TALENT_CARD_ART,
+  milestoneDeck,
+  talentDeck,
+} from "./card-data.js";
 
 const WIN_SCORE = 20;
 const PLAYER_COLORS = ["#c8f04b", "#f3a986", "#8fb4ef", "#d39bdd"];
-const FOUNDER_ARCHETYPES = [
-  { name: "The Storyteller", stat: "brand" },
-  { name: "The Logistics Pro", stat: "fulfillment" },
-  { name: "The Maker", stat: "production" },
-  { name: "The People Builder", stat: "staffing" },
-  { name: "The Systems Thinker", stat: "operations" },
-];
-const CHAOS_CARDS = [
-  { id: "c1", name: "Brand tax", title: "The algorithm changed again", description: "Brand requirements increase by 1 on every Order and Milestone until the next Chaos Monkey.", effect: "skill", stat: "brand", delta: 1 },
-  { id: "c2", name: "Ops breakthrough", title: "Someone finally read the spreadsheet", description: "Operations requirements decrease by 1 on every Order and Milestone until the next Chaos Monkey.", effect: "skill", stat: "operations", delta: -1 },
-  { id: "c3", name: "Talent shuffle", title: "Unexpected re-org", description: "Every founder with Agency or Staff cards must choose one to discard.", effect: "discard" },
-  { id: "c4", name: "New priorities", title: "The roadmap has changed", description: "Replace all five open Orders and Milestones.", effect: "refresh" },
-  { id: "c5", name: "Hiring rebate", title: "A little free money", description: "Drafting from the Talent Market earns $1 until the next Chaos Monkey.", effect: "cashback" },
-];
 const state = { players: [], currentPlayerIndex: 0, turn: 1, market: [], milestones: [], talentDraw: [], milestoneDraw: [], activeObjective: null, selected: new Set(), sound: true, chaosEnabled: true, activeChaos: null, pendingDiscards: [], endgame: null, upkeepPending: false, leaderboardSaved: false };
 let actionAnimating = false;
 let monkeyAnimationPending = false;
@@ -134,25 +30,32 @@ const objectiveRewardText = (card, abbreviated = false) => [
   card.reward.cash ? `$${card.reward.cash}${abbreviated ? "" : " cash"}` : "",
   card.points ? `+${card.points} ${abbreviated ? "rep" : "reputation"}` : "",
 ].filter(Boolean).join(" · ");
-const talentArtwork = (stats) => {
-  const stat = primaryStat(stats);
-  return `<img class="market-card-art" src="${TALENT_ART[stat]}" alt="" aria-hidden="true" decoding="async" />`;
-};
-const cardArtwork = (stats) => {
-  const primary = primaryStat(stats);
-  const supporting = Object.keys(stats).filter(stat => stat !== primary);
-  return `<div class="card-art" style="--art-color:${STAT_META[primary].color}">
-    <span class="art-sun"></span>${skillIcon(primary, "art-main")}
-    <div class="art-support">${supporting.map(stat => `<span style="--art-color:${STAT_META[stat].color}">${skillIcon(stat)}</span>`).join("")}</div>
-  </div>`;
+const talentArtwork = (card) => {
+  const stat = primaryStat(card.stats);
+  return `<span class="market-card-art" aria-hidden="true"><img src="${TALENT_CARD_ART[card.name] || TALENT_ART[stat]}" alt="" decoding="async" /></span>`;
 };
 const statGrid = (stats, compact = false, hideEmpty = false) => `<div class="stat-grid${compact ? " compact" : ""}">${STAT_ORDER.filter(key => !hideEmpty || stats[key]).map(key => {
   const value = stats[key] || 0;
   return `<span class="stat-slot ${value ? "active" : "empty"}" style="--stat-color:${STAT_META[key].color}" title="${STAT_META[key].label}: ${value}">${skillIcon(key)}<em>${STAT_META[key].label}</em><strong>${value || "—"}</strong></span>`;
 }).join("")}</div>`;
+const activeStats = (stats) => STAT_ORDER.filter(stat => stats[stat]);
+const objectiveRequirementText = (stats) => activeStats(stats).map(stat => `${STAT_META[stat].label} ${stats[stat]}`).join(", ");
+const objectiveRequirements = (stats) => `<div class="objective-requirements" role="list" aria-label="Skill requirements">${activeStats(stats).map(stat => {
+  const value = stats[stat];
+  const label = `${STAT_META[stat].label}: ${value}`;
+  return `<span class="objective-requirement" role="listitem" style="--stat-color:${STAT_META[stat].color}" title="${label}" aria-label="${label}">${skillIcon(stat)}<strong>${value}</strong></span>`;
+}).join("")}</div>`;
+function objectiveRewards(card) {
+  const rewards = [
+    card.reward.cash ? { icon: "cash", label: `Cash reward: $${card.reward.cash}`, value: `$${card.reward.cash}` } : null,
+    card.points ? { icon: "reputation", label: `Reputation reward: ${card.points}`, value: `+${card.points}` } : null,
+  ].filter(Boolean);
+  if (!rewards.length) return "";
+  return `<div class="objective-rewards" role="list" aria-label="Rewards">${rewards.map(({ icon, label, value }) => `<span class="objective-reward" role="listitem" title="${label}" aria-label="${label}"><svg class="reward-icon" aria-hidden="true"><use href="#icon-${icon}"></use></svg><strong>${value}</strong></span>`).join("")}</div>`;
+}
+const marketCardAccent = (stats) => `<div class="market-card-accent" aria-hidden="true">${activeStats(stats).map(stat => `<span style="--stat-color:${STAT_META[stat].color}"></span>`).join("")}</div>`;
 const marketCardFooter = (stats) => {
-  const activeStats = STAT_ORDER.filter(stat => stats[stat]);
-  return `<div class="market-card-footer" role="list" aria-label="Card attributes">${activeStats.map(stat => {
+  return `<div class="market-card-footer" role="list" aria-label="Card attributes">${activeStats(stats).map(stat => {
     const value = stats[stat];
     const label = `${STAT_META[stat].label}: ${value}`;
     return `<span class="market-card-stat" role="listitem" style="--stat-color:${STAT_META[stat].color}" title="${label}" aria-label="${label}">${skillIcon(stat)}<strong>${value}</strong></span>`;
@@ -217,8 +120,12 @@ function renderPlayers() {
     const totals = totalSkills(player);
     return `<div class="player-chip ${index === state.currentPlayerIndex ? "active" : ""}" style="--player-color:${player.color}">
       <img class="player-avatar" src="${FOUNDER_ART[player.founder?.stat || Object.keys(player.strengths)[0]]}" alt="" aria-hidden="true" /><p><b>${escapeHtml(player.name)}</b><small>${escapeHtml(player.founderName || player.founder?.name || "Founder")} · +1 ${STAT_META[player.founder?.stat || Object.keys(player.strengths)[0]]?.label}</small></p>
+      ${index === state.currentPlayerIndex ? "<em>PLAYING</em>" : ""}
+      <div class="player-score">
+        <span class="player-reputation" aria-label="Reputation: ${player.score}"><span class="player-reputation-icon"><svg aria-hidden="true"><use href="#icon-reputation"></use></svg></span><span class="player-reputation-copy"><small>REPUTATION</small><strong>${player.score}</strong></span></span>
+        <span class="player-cash" aria-label="Cash: $${player.cash}${player.debt ? `, owes $${player.debt}` : ""}"><small>CASH</small><strong>$${player.cash}</strong>${player.debt ? `<span>OWES $${player.debt}</span>` : ""}</span>
+      </div>
       <div class="player-skills">${STAT_ORDER.map(stat => `<span style="--stat-color:${STAT_META[stat].color}" title="${STAT_META[stat].label}" aria-label="${STAT_META[stat].label}: ${totals[stat] || 0}">${skillIcon(stat)}<small>${STAT_META[stat].label[0]}</small>${totals[stat] || 0}</span>`).join("")}</div>
-      ${index === state.currentPlayerIndex ? "<em>PLAYING</em>" : ""}<strong class="player-score">${player.score} rep · $${player.cash}${player.debt ? ` · owes $${player.debt}` : ""}</strong>
     </div>`;
   }).join("");
   const monkey = state.players.length === 1 ? `<div class="player-chip monkey-chip" style="--player-color:#ef9b61"><span class="player-dot">🙈</span><p><b>Chaos Monkey</b><small>Takes a Talent Market card after every turn</small></p><strong>1 IN 5</strong><small>chance to remove an Order or Milestone</small></div>` : "";
@@ -229,12 +136,14 @@ function renderMarket() {
   $("#marketRow").innerHTML = state.market.map((card, index) => {
     const primary = primaryStat(card.stats);
     const primaryLabel = STAT_META[primary].label;
+    const economy = card.type === "tool" ? ECONOMY_ART.permanent : ECONOMY_ART.upkeep;
     return `
-      <button class="game-card market-card" data-market="${index}" aria-label="Draft ${card.name}, ${card.kind}, primary skill ${primaryLabel}" ${!isMyTurn() || state.pendingDiscards.length ? "disabled" : ""}>
+      <button class="game-card market-card" data-market="${index}" aria-label="Draft ${card.name}, ${card.kind}, primary skill ${primaryLabel}, ${economy.label}" ${!isMyTurn() || state.pendingDiscards.length ? "disabled" : ""}>
+        ${talentArtwork(card)}
         <div class="card-top" style="--card-color:${card.color}">
-          ${talentArtwork(card.stats)}<span class="card-number">0${index + 1}</span><h3>${card.name}</h3>
+          ${marketCardAccent(card.stats)}<span class="card-economy-badge" title="${economy.label}"><img src="${economy.src}" alt="" aria-hidden="true" decoding="async" /></span><h3>${card.name}</h3>
         </div>
-        <div class="card-body"><p class="card-flavour">“${escapeHtml(CARD_FLAVOUR[card.name] || "Build it. Ship it. Learn fast.")}”</p><div class="card-economy ${card.type}">${card.type === "tool" ? "Permanent +1 · no upkeep" : "$1 Upkeep each turn"}</div></div>
+        <div class="card-body"><p class="card-flavour">“${escapeHtml(CARD_FLAVOUR[card.name] || "Build it. Ship it. Learn fast.")}”</p></div>
         ${marketCardFooter(card.stats)}
       </button>`;
   }).join("");
@@ -247,12 +156,8 @@ function renderMilestones() {
     const requirements = effectiveRequirements(card);
     const requirementTotal = Object.values(requirements).reduce((sum, value) => sum + value, 0);
     const ready = canComplete(card, playerSkills);
-    const reward = card.reward.cash ? `$${card.reward.cash} cash` : "No cash";
-    const rewardLabel = !card.reward.cash ? "REPUTATION ONLY" : !card.points ? "CASH ONLY" : card.points >= card.reward.cash ? "REPUTATION FOCUS" : card.reward.cash >= card.points + 5 ? "CASH FOCUS" : "REWARD";
-    return `<button class="game-card milestone-card ${ready ? "can-complete" : ""}" data-milestone="${index}" aria-label="Open ${card.kind} ${card.name}, ${requirementTotal} total skill${ready ? ", ready to complete" : ""}" ${!isMyTurn() || state.pendingDiscards.length ? "disabled" : ""}>
-      <div class="card-top" style="background:${card.color}"><p class="card-kind">${card.kind} · ${requirementTotal} skill</p>${ready ? `<span class="ready-badge">✓ READY</span>` : ""}<span class="card-number">B${String(index + 1).padStart(2, "0")}</span><h3>${card.name}</h3>${cardArtwork(requirements)}</div>
-      <div class="card-body">${statGrid(requirements, false, true)}
-      <div class="reward"><p>${rewardLabel}<strong>${reward}</strong></p><span class="points" title="${card.points ? `+${card.points} reputation` : "No reputation"}">${card.points ? `+${card.points}` : "—"}</span></div></div>
+    return `<button class="game-card milestone-card ${ready ? "can-complete" : ""}" data-milestone="${index}" style="--objective-color:${card.color}" aria-label="Open ${card.kind} ${card.name}, requires ${objectiveRequirementText(requirements)}, ${requirementTotal} total skill, reward ${objectiveRewardText(card)}${ready ? ", ready to complete" : ""}" ${!isMyTurn() || state.pendingDiscards.length ? "disabled" : ""}>
+      <div class="card-top"><span class="objective-card-art" aria-hidden="true"><img src="${MILESTONE_ART[card.name]}" alt="" decoding="async" /></span>${objectiveRequirements(requirements)}${objectiveRewards(card)}${ready ? `<span class="ready-badge">✓ READY</span>` : ""}<h3>${card.name}</h3></div>
     </button>`;
   }).join("");
   document.querySelectorAll("[data-milestone]").forEach(button => button.addEventListener("click", () => openObjective(Number(button.dataset.milestone))));
